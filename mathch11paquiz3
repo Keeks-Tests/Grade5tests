@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 11: Finding Perimeter and Area</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* CRITICAL iPad RULE: 16px minimum font size prevents auto-zoom on focus */
+        input, select, textarea { font-size: 16px !important; }
+        
+        .correct { 
+            border: 3px solid #22c55e !important; 
+            background-color: #f0fdf4 !important; 
+            color: #166534;
+        }
+        .incorrect { 
+            border: 3px solid #ef4444 !important; 
+            background-color: #fef2f2 !important; 
+            color: #991b1b;
+        }
+        
+        .quiz-input {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .svg-text {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 14px;
+            fill: #0f172a;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen font-sans text-slate-800">
+
+    <!-- WELCOME SCREEN (Name Gate) -->
+    <div id="welcome-screen" class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-lg w-full text-center border-t-8 border-indigo-600">
+            <h1 class="text-3xl font-black text-slate-800 mb-2">Chapter 11: Finding Perimeter & Area</h1>
+            <p class="text-slate-500 mb-8">Triangles, Rectangles, and Word Problems</p>
+            
+            <div class="text-left mb-8">
+                <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">Student Name</label>
+                <input type="text" id="studentName" 
+                       class="w-full p-4 border-2 border-slate-200 rounded-xl shadow-sm focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 outline-none font-medium text-lg" 
+                       placeholder="First and Last Name"
+                       onkeypress="if(event.key === 'Enter') startTest()">
+            </div>
+            
+            <button onclick="startTest()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black text-lg py-4 rounded-xl transition-all shadow-lg active:scale-95">
+                Begin Assessment
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN ASSESSMENT CONTAINER (Hidden initially) -->
+    <div id="test-container" class="hidden max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-10 my-8">
+        <header class="border-b-2 border-slate-100 pb-4 mb-8 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-extrabold text-indigo-900 mb-1">Chapter 11: Finding Perimeter & Area</h1>
+                <p class="text-slate-500 font-medium" id="display-name-header">Student: </p>
+            </div>
+        </header>
+
+        <div class="space-y-12">
+            
+            <!-- SECTION 1: Area of Triangles -->
+            <section>
+                <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-slate-200 pb-2 mb-6">Find the Area of the Triangles</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Q1 -->
+                    <div class="question bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col items-center" data-type="math" data-answer="20" data-unit="m²">
+                        <span class="font-bold w-full text-left mb-2">1.</span>
+                        <svg width="160" height="120" viewBox="0 0 160 120" class="mb-4">
+                            <polygon points="30,90 130,90 30,20" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <polyline points="30,80 40,80 40,90" fill="none" stroke="#4f46e5" stroke-width="1.5"/>
+                            <text x="80" y="110" class="svg-text" text-anchor="middle">8 m</text>
+                            <text x="15" y="60" class="svg-text" text-anchor="middle">5 m</text>
+                        </svg>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <input type="text" class="quiz-input w-24 p-2 border-2 rounded-lg text-center font-bold" inputmode="decimal" autocorrect="off">
+                            <select class="unit-select p-2 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-indigo-500 bg-white">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="m">m</option>
+                                <option value="m²">m²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="question bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col items-center" data-type="math" data-answer="42" data-unit="in.²">
+                        <span class="font-bold w-full text-left mb-2">2.</span>
+                        <svg width="180" height="120" viewBox="0 0 180 120" class="mb-4">
+                            <polygon points="20,100 160,100 70,20" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <line x1="70" y1="20" x2="70" y2="100" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="4"/>
+                            <polyline points="70,90 80,90 80,100" fill="none" stroke="#0f172a" stroke-width="1"/>
+                            <text x="115" y="115" class="svg-text" text-anchor="middle">12 in</text>
+                            <text x="85" y="65" class="svg-text" text-anchor="start">7 in</text>
+                        </svg>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <input type="text" class="quiz-input w-24 p-2 border-2 rounded-lg text-center font-bold" inputmode="decimal" autocorrect="off">
+                            <select class="unit-select p-2 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-indigo-500 bg-white">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="in.">in.</option>
+                                <option value="in.²">in.²</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: Area Word Problems -->
+            <section>
+                <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-slate-200 pb-2 mb-6">Area Applications</h2>
+
+                <div class="space-y-6">
+                    <!-- Q3 -->
+                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm" data-type="math" data-answer="120" data-unit="in.²">
+                        <p class="font-bold text-lg mb-4">3. A triangular flag has a base of 10 inches and a height of 24 inches. What is the area of the flag?</p>
+                        <div class="flex items-center gap-3">
+                            <input type="text" class="quiz-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
+                            <select class="unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-indigo-500 bg-white text-lg">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="in.">in.</option>
+                                <option value="in.²">in.²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Q4 (Decimals check) -->
+                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm" data-type="math" data-answer="22.5" data-unit="cm²">
+                        <p class="font-bold text-lg mb-4">4. Find the area of a triangle with a base of 5 cm and a height of 9 cm.</p>
+                        <div class="flex items-center gap-3">
+                            <input type="text" class="quiz-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
+                            <select class="unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-indigo-500 bg-white text-lg">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="cm">cm</option>
+                                <option value="cm²">cm²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Q5 (Composite shape) -->
+                    <div class="question bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col md:flex-row items-center gap-8" data-type="math" data-answer="100" data-unit="ft²">
+                        <div class="flex-1">
+                            <p class="font-bold text-lg mb-4">5. Find the total area of the figure to the right.</p>
+                            <div class="flex items-center gap-3">
+                                <input type="text" class="quiz-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
+                                <select class="unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-indigo-500 bg-white text-lg">
+                                    <option value="" disabled selected>Unit</option>
+                                    <option value="ft">ft</option>
+                                    <option value="ft²">ft²</option>
+                                </select>
+                            </div>
+                        </div>
+                        <svg width="180" height="170" viewBox="0 0 180 170" class="flex-shrink-0 bg-white rounded p-2">
+                            <!-- Rectangle -->
+                            <rect x="40" y="80" width="100" height="70" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <!-- Triangle -->
+                            <polygon points="40,80 140,80 90,30" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <!-- Triangle Height -->
+                            <line x1="90" y1="30" x2="90" y2="80" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="4"/>
+                            
+                            <text x="90" y="165" class="svg-text" text-anchor="middle">10 ft</text>
+                            <text x="20" y="120" class="svg-text" text-anchor="middle">8 ft</text>
+                            <text x="75" y="60" class="svg-text" text-anchor="middle">4 ft</text>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Perimeter Word Problems -->
+            <section>
+                <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-slate-200 pb-2 mb-6">Perimeter Word Problems</h2>
+
+                <div class="space-y-6">
+                    <!-- Q6 -->
+                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm" data-type="math" data-answer="48" data-unit="ft">
+                        <p class="font-bold text-lg mb-4">6. Mr. Gomez is building a fence completely around his rectangular garden. The garden is 15 feet long and 9 feet wide. How many feet of fencing does he need?</p>
+                        <div class="flex items-center gap-3">
+                            <input type="text" class="quiz-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
+                            <select class="unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-indigo-500 bg-white text-lg">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="ft">ft</option>
+                                <option value="ft²">ft²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm" data-type="math" data-answer="180" data-unit="yd">
+                        <p class="font-bold text-lg mb-4">7. A local park is building a walking path around a square playground. Each side of the playground is 45 yards long. What is the total distance around the playground?</p>
+                        <div class="flex items-center gap-3">
+                            <input type="text" class="quiz-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
+                            <select class="unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-indigo-500 bg-white text-lg">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="yd">yd</option>
+                                <option value="yd²">yd²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Q8 (Decimals) -->
+                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm" data-type="math" data-answer="42" data-unit="in.">
+                        <p class="font-bold text-lg mb-4">8. Sarah is putting a ribbon border around a rectangular picture frame. The frame is 12.5 inches long and 8.5 inches wide. How many inches of ribbon does she need?</p>
+                        <div class="flex items-center gap-3">
+                            <input type="text" class="quiz-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
+                            <select class="unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-indigo-500 bg-white text-lg">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="in.">in.</option>
+                                <option value="in.²">in.²</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: Classify & Solve (Dropdowns) -->
+            <section>
+                <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-slate-200 pb-2 mb-6">Review & Logic</h2>
+                
+                <div class="space-y-6">
+                    <!-- Q9 (Text Dropdown) -->
+                    <div class="question bg-indigo-50 border border-indigo-100 p-6 rounded-xl" data-type="text" data-answer="equilateral">
+                        <p class="font-bold text-lg mb-4">9. A triangle has side lengths of 8 ft, 8 ft, and 8 ft. What type of triangle is this?</p>
+                        <select class="quiz-input p-3 border-2 border-slate-300 rounded-lg shadow-sm outline-none focus:border-indigo-500 w-full md:w-64 font-bold text-lg">
+                            <option value="" disabled selected>Select classification...</option>
+                            <option value="equilateral">Equilateral</option>
+                            <option value="isosceles">Isosceles</option>
+                            <option value="scalene">Scalene</option>
+                        </select>
+                    </div>
+
+                    <!-- Q10 (Text Dropdown) -->
+                    <div class="question bg-indigo-50 border border-indigo-100 p-6 rounded-xl" data-type="text" data-answer="12x12">
+                        <p class="font-bold text-lg mb-4">10. A rectangular room has an area of 144 square feet. Select the possible measures of the length and width.</p>
+                        <select class="quiz-input p-3 border-2 border-slate-300 rounded-lg shadow-sm outline-none focus:border-indigo-500 w-full md:w-64 font-bold text-lg">
+                            <option value="" disabled selected>Select dimensions...</option>
+                            <option value="15x10">15 ft × 10 ft</option>
+                            <option value="12x12">12 ft × 12 ft</option>
+                            <option value="14x12">14 ft × 12 ft</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <button onclick="gradeTest()" class="w-full mt-12 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xl py-4 rounded-xl transition-all shadow-xl active:scale-95 flex justify-center items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Turn In Assessment
+        </button>
+    </div>
+
+    <!-- RESULTS PAGE (Hidden initially) -->
+    <div id="results-page" class="hidden max-w-2xl mx-auto mt-10 p-4">
+        <div id="capture-area" class="bg-white rounded-2xl shadow-2xl p-10 text-center relative overflow-hidden border-t-8 border-indigo-500">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-100 rounded-full opacity-50"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-100 rounded-full opacity-50"></div>
+            
+            <h2 class="text-4xl font-black text-slate-800 mb-2 relative z-10">Assessment Complete!</h2>
+            <div id="student-display" class="text-2xl text-indigo-600 font-bold mb-6 relative z-10 uppercase tracking-wider"></div>
+            
+            <div class="bg-slate-50 inline-block p-8 rounded-2xl mb-6 shadow-inner relative z-10">
+                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Final Score</p>
+                <div class="text-6xl font-extrabold text-slate-800" id="score-display">0%</div>
+            </div>
+            
+            <p class="text-slate-500 mb-8 font-medium relative z-10">Your teacher has successfully received your grade.</p>
+        </div>
+        
+        <button onclick="downloadResults()" class="mt-8 w-full sm:w-auto mx-auto bg-slate-800 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-900 flex justify-center items-center gap-3 shadow-lg transition-transform active:scale-95">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Save Screenshot of Grade
+        </button>
+    </div>
+
+    <script>
+        let studentNameGlobal = "";
+
+        // NAME GATE LOGIC
+        function startTest() {
+            const nameInput = document.getElementById('studentName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert("Please enter your name to begin.");
+                nameInput.focus();
+                return;
+            }
+
+            studentNameGlobal = name;
+            document.getElementById('display-name-header').innerText = `Student: ${name}`;
+            
+            // Hide Welcome, Show Test
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('test-container').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        // GRADING LOGIC
+        async function gradeTest() {
+            const questions = document.querySelectorAll('.question');
+            let correctCount = 0;
+            let reportBody = `Assessment: Chapter 11: Finding Perimeter and Area\nStudent: ${studentNameGlobal}\n\n`;
+
+            questions.forEach((q, index) => {
+                const input = q.querySelector('.quiz-input');
+                const rawUserAnswer = input.value.trim();
+                const qType = q.getAttribute('data-type');
+                const expectedAnswer = q.getAttribute('data-answer');
+                let isCorrect = false;
+
+                if (qType === 'text') {
+                    // Strict text match (for dropdowns)
+                    if (rawUserAnswer.toLowerCase() === expectedAnswer.toLowerCase()) {
+                        isCorrect = true;
+                        correctCount++;
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        reportBody += `Q${index + 1}: ${rawUserAnswer} (Correct)\n`;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                        reportBody += `Q${index + 1}: ${rawUserAnswer || "[Blank]"} (Incorrect, expected: ${expectedAnswer})\n`;
+                    }
+                    input.disabled = true;
+                } else if (qType === 'math') {
+                    // Numeric evaluation (allows "22.50" to match "22.5")
+                    // Number() strictly evaluates the whole string, so "22.5a" becomes NaN (incorrect)
+                    const userNum = Number(rawUserAnswer);
+                    const expectedNum = Number(expectedAnswer);
+                    
+                    const numCorrect = (rawUserAnswer !== "" && !isNaN(userNum) && userNum === expectedNum);
+                    
+                    let unitCorrect = true;
+                    let expectedUnit = "";
+                    let userUnit = "";
+                    
+                    const unitSelect = q.querySelector('.unit-select');
+                    if (unitSelect) {
+                        expectedUnit = q.getAttribute('data-unit');
+                        userUnit = unitSelect.value || "[Blank]";
+                        unitCorrect = (userUnit === expectedUnit);
+                        
+                        if (unitCorrect) {
+                            unitSelect.classList.add('correct');
+                            unitSelect.classList.remove('incorrect');
+                        } else {
+                            unitSelect.classList.add('incorrect');
+                            unitSelect.classList.remove('correct');
+                        }
+                        unitSelect.disabled = true;
+                    }
+
+                    if (numCorrect && unitCorrect) {
+                        correctCount++;
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        reportBody += `Q${index + 1}: ${rawUserAnswer} ${userUnit !== "[Blank]" ? userUnit : ""} (Correct)\n`;
+                    } else {
+                        input.classList.add(numCorrect ? 'correct' : 'incorrect');
+                        input.classList.remove(numCorrect ? 'incorrect' : 'correct');
+                        reportBody += `Q${index + 1}: Num: ${rawUserAnswer || "[Blank]"} (Exp: ${expectedAnswer}), Unit: ${userUnit} (Exp: ${expectedUnit})\n`;
+                    }
+                    
+                    // Lock the input after grading
+                    input.disabled = true;
+                }
+            });
+
+            // Calculate grade
+            const score = Math.round((correctCount / questions.length) * 100);
+            reportBody += `\nFinal Score: ${score}% (${correctCount}/${questions.length})`;
+
+            // Disable main button
+            const submitBtn = document.querySelector('button[onclick="gradeTest()"]');
+            submitBtn.innerText = "Submitting...";
+            submitBtn.disabled = true;
+
+            // Transmit to teacher
+            await submitToTeacher(studentNameGlobal, score, reportBody);
+
+            // Transition UI
+            window.scrollTo(0,0);
+            document.getElementById('test-container').classList.add('hidden');
+            document.getElementById('results-page').classList.remove('hidden');
+            document.getElementById('student-display').innerText = studentNameGlobal;
+            document.getElementById('score-display').innerText = `${score}%`;
+        }
+
+        async function submitToTeacher(name, score, message) {
+            const formData = {
+                access_key: "c9a79668-d06f-42b1-a73d-fee0122288d5",
+                subject: `Math Quiz Result: ${name} - ${score}%`,
+                from_name: "Classroom iPad Assessment",
+                name: name,
+                message: message
+            };
+
+            try {
+                await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+                console.log("Grade successfully transmitted.");
+            } catch (e) {
+                console.error("Submission failed.", e);
+            }
+        }
+
+        function downloadResults() {
+            const area = document.getElementById('capture-area');
+            html2canvas(area, {
+                scale: 2, 
+                backgroundColor: "#ffffff"
+            }).then(canvas => {
+                const link = document.createElement('a');
+                const safeName = studentNameGlobal.replace(/[^a-z0-9]/gi, '_');
+                link.download = `Area_Perimeter_Quiz_${safeName}.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
