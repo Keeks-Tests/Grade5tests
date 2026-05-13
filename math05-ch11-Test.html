@@ -32,7 +32,7 @@
             font-weight: 700;
         }
 
-        /* Styling for the review section */
+        /* Styling for the review section clones */
         .review-card {
             page-break-inside: avoid;
             break-inside: avoid;
@@ -41,244 +41,530 @@
 </head>
 <body class="bg-slate-50 min-h-screen font-sans text-slate-800">
 
-    <!-- WELCOME SCREEN (Name Gate) -->
     <div id="welcome-screen" class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 max-w-lg w-full text-center border-t-8 border-purple-600">
+        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 max-w-lg w-full text-center border-t-8 border-slate-800">
             <h1 class="text-3xl font-black text-slate-800 mb-2">Chapter 11 Assessment</h1>
-            <p class="text-slate-500 mb-8">Geometry, Transformations, Area & Perimeter</p>
+            <p class="text-slate-500 mb-8">Geometry, Transformations, Perimeter & Area</p>
             
             <div class="text-left mb-8">
                 <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">Student Name</label>
                 <input type="text" id="studentName" 
-                       class="w-full p-4 border-2 border-slate-200 rounded-xl shadow-sm focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none font-medium text-lg" 
+                       class="w-full p-4 border-2 border-slate-200 rounded-xl shadow-sm focus:ring-4 focus:ring-slate-100 focus:border-slate-800 outline-none font-medium text-lg" 
                        placeholder="First and Last Name"
                        onkeypress="if(event.key === 'Enter') startTest()">
             </div>
             
-            <button onclick="startTest()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-black text-lg py-4 rounded-xl transition-all shadow-lg active:scale-95">
+            <button onclick="startTest()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-black text-lg py-4 rounded-xl transition-all shadow-lg active:scale-95">
                 Begin Assessment
             </button>
         </div>
     </div>
 
-    <!-- MAIN ASSESSMENT CONTAINER -->
-    <div id="test-container" class="hidden max-w-4xl mx-auto bg-white rounded-3xl shadow-lg p-6 md:p-10 my-8">
-        <header class="border-b-2 border-slate-100 pb-4 mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+    <div id="test-container" class="hidden max-w-5xl mx-auto bg-white rounded-3xl shadow-lg p-6 md:p-10 my-8">
+        <header class="border-b-4 border-slate-800 pb-4 mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold text-purple-900 mb-1">Chapter 11 Assessment</h1>
-                <p class="text-slate-500 font-medium">Complete all questions carefully.</p>
+                <h1 class="text-4xl font-black text-slate-900 mb-1">Chapter 11 Assessment</h1>
+                <p class="text-slate-500 font-medium">Complete all 31 questions.</p>
             </div>
-            <div class="bg-purple-50 px-4 py-2 rounded-lg border border-purple-100">
-                <p class="text-xs text-purple-500 font-bold uppercase tracking-wider">Student</p>
-                <p id="display-name-header" class="text-lg font-bold text-purple-900"></p>
+            <div class="bg-slate-100 px-4 py-2 rounded-lg border border-slate-200">
+                <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Student</p>
+                <p id="display-name-header" class="text-lg font-bold text-slate-900"></p>
             </div>
         </header>
 
         <div class="space-y-12" id="questions-wrapper">
             
-            <!-- SECTION 1: Classifications & Transformations -->
             <section>
-                <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-slate-200 pb-2 mb-6">Geometry & Transformations</h2>
+                <p class="font-bold text-lg text-slate-800 mb-6">Identify the quadrilateral as a square, rectangle, trapezoid, rhombus, or parallelogram. Use each answer once.</p>
                 
-                <div class="space-y-8">
-                    <!-- Q1 (Text Variation Test) -->
-                    <div class="question bg-slate-50 p-6 rounded-xl border border-slate-200" data-type="text" data-answer="trapezoid|trapezoid shape|a trapezoid">
-                        <p class="font-bold text-lg mb-4">1. Identify the quadrilateral shown below.</p>
-                        <div class="flex flex-col sm:flex-row items-center gap-6">
-                            <svg width="160" height="100" viewBox="0 0 160 100" class="bg-white rounded p-2 shadow-sm">
-                                <!-- Trapezoid -->
-                                <polygon points="40,80 120,80 100,20 60,20" fill="#d8b4fe" stroke="#9333ea" stroke-width="2"/>
-                            </svg>
-                            <input type="text" class="quiz-input w-full sm:w-64 p-3 border-2 rounded-lg font-bold shadow-sm" placeholder="Type shape name...">
-                        </div>
-                    </div>
-
-                    <!-- Q2 (Vocabulary Dropdown) -->
-                    <div class="question bg-slate-50 p-6 rounded-xl border border-slate-200" data-type="text" data-answer="octagon">
-                        <p class="font-bold text-lg mb-4">2. Match the shape to its number of sides: <span class="text-purple-700">8 sides</span></p>
-                        <select class="quiz-input p-3 border-2 border-slate-300 rounded-lg shadow-sm outline-none focus:border-purple-500 w-full md:w-64 font-bold text-lg bg-white">
-                            <option value="" disabled selected>Select polygon...</option>
-                            <option value="pentagon">Pentagon</option>
-                            <option value="hexagon">Hexagon</option>
-                            <option value="heptagon">Heptagon</option>
-                            <option value="octagon">Octagon</option>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
+                    <div class="question flex flex-col items-center gap-4" data-type="text" data-answer="rectangle">
+                        <span class="font-bold w-full text-left">1.</span>
+                        <svg width="100" height="60" viewBox="0 0 100 60">
+                            <rect x="5" y="5" width="90" height="50" fill="#d1d5db" stroke="#374151" stroke-width="2"/>
+                        </svg>
+                        <select class="quiz-input w-full p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold text-sm outline-none focus:border-slate-800">
+                            <option value="" disabled selected>Select...</option>
+                            <option value="parallelogram">Parallelogram</option>
+                            <option value="rectangle">Rectangle</option>
+                            <option value="rhombus">Rhombus</option>
+                            <option value="square">Square</option>
+                            <option value="trapezoid">Trapezoid</option>
                         </select>
                     </div>
 
-                    <!-- Q3 (Transformations) -->
-                    <div class="question bg-slate-50 p-6 rounded-xl border border-slate-200" data-type="text" data-answer="reflection">
-                        <p class="font-bold text-lg mb-4">3. Write translation, rotation, or reflection to show how the figure moved.</p>
-                        <div class="flex flex-col sm:flex-row items-center gap-6">
-                            <svg width="200" height="100" viewBox="0 0 200 100" class="bg-white rounded p-2 shadow-sm border border-slate-200">
-                                <!-- Grid Lines -->
-                                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="1"/>
-                                </pattern>
-                                <rect width="200" height="100" fill="url(#grid)" />
-                                <!-- Center Line -->
-                                <line x1="100" y1="0" x2="100" y2="100" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4"/>
-                                <!-- Left Shape -->
-                                <polygon points="80,40 40,40 40,80" fill="#d8b4fe" stroke="#9333ea" stroke-width="2"/>
-                                <!-- Right Shape (Reflected) -->
-                                <polygon points="120,40 160,40 160,80" fill="#d8b4fe" stroke="#9333ea" stroke-width="2"/>
-                                <!-- Arrows -->
-                                <path d="M 85 60 L 95 60 L 90 55 M 95 60 L 90 65" fill="none" stroke="#0f172a" stroke-width="2"/>
-                                <path d="M 115 60 L 105 60 L 110 55 M 105 60 L 110 65" fill="none" stroke="#0f172a" stroke-width="2"/>
-                            </svg>
-                            <select class="quiz-input p-3 border-2 border-slate-300 rounded-lg shadow-sm outline-none focus:border-purple-500 w-full sm:w-48 font-bold text-lg bg-white">
-                                <option value="" disabled selected>Select movement...</option>
-                                <option value="translation">Translation</option>
-                                <option value="rotation">Rotation</option>
-                                <option value="reflection">Reflection</option>
+                    <div class="question flex flex-col items-center gap-4" data-type="text" data-answer="parallelogram">
+                        <span class="font-bold w-full text-left">2.</span>
+                        <svg width="100" height="60" viewBox="0 0 100 60">
+                            <polygon points="25,5 95,5 75,55 5,55" fill="#d1d5db" stroke="#374151" stroke-width="2"/>
+                        </svg>
+                        <select class="quiz-input w-full p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold text-sm outline-none focus:border-slate-800">
+                            <option value="" disabled selected>Select...</option>
+                            <option value="parallelogram">Parallelogram</option>
+                            <option value="rectangle">Rectangle</option>
+                            <option value="rhombus">Rhombus</option>
+                            <option value="square">Square</option>
+                            <option value="trapezoid">Trapezoid</option>
+                        </select>
+                    </div>
+
+                    <div class="question flex flex-col items-center gap-4" data-type="text" data-answer="square">
+                        <span class="font-bold w-full text-left">3.</span>
+                        <svg width="100" height="60" viewBox="0 0 100 60">
+                            <rect x="25" y="5" width="50" height="50" fill="#d1d5db" stroke="#374151" stroke-width="2"/>
+                        </svg>
+                        <select class="quiz-input w-full p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold text-sm outline-none focus:border-slate-800">
+                            <option value="" disabled selected>Select...</option>
+                            <option value="parallelogram">Parallelogram</option>
+                            <option value="rectangle">Rectangle</option>
+                            <option value="rhombus">Rhombus</option>
+                            <option value="square">Square</option>
+                            <option value="trapezoid">Trapezoid</option>
+                        </select>
+                    </div>
+
+                    <div class="question flex flex-col items-center gap-4" data-type="text" data-answer="rhombus">
+                        <span class="font-bold w-full text-left">4.</span>
+                        <svg width="100" height="60" viewBox="0 0 100 60">
+                            <polygon points="35,5 85,5 65,55 15,55" fill="#d1d5db" stroke="#374151" stroke-width="2"/>
+                        </svg>
+                        <select class="quiz-input w-full p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold text-sm outline-none focus:border-slate-800">
+                            <option value="" disabled selected>Select...</option>
+                            <option value="parallelogram">Parallelogram</option>
+                            <option value="rectangle">Rectangle</option>
+                            <option value="rhombus">Rhombus</option>
+                            <option value="square">Square</option>
+                            <option value="trapezoid">Trapezoid</option>
+                        </select>
+                    </div>
+
+                    <div class="question flex flex-col items-center gap-4" data-type="text" data-answer="trapezoid">
+                        <span class="font-bold w-full text-left">5.</span>
+                        <svg width="100" height="60" viewBox="0 0 100 60">
+                            <polygon points="30,5 70,5 95,55 5,55" fill="#d1d5db" stroke="#374151" stroke-width="2"/>
+                        </svg>
+                        <select class="quiz-input w-full p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold text-sm outline-none focus:border-slate-800">
+                            <option value="" disabled selected>Select...</option>
+                            <option value="parallelogram">Parallelogram</option>
+                            <option value="rectangle">Rectangle</option>
+                            <option value="rhombus">Rhombus</option>
+                            <option value="square">Square</option>
+                            <option value="trapezoid">Trapezoid</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="border-t-2 border-slate-100 pt-8">
+                <p class="font-bold text-lg text-slate-800 mb-6">Match the shape to its number of sides.</p>
+                
+                <div class="flex flex-col md:flex-row gap-12">
+                    <div class="space-y-4 flex-1">
+                        <div class="question flex items-center gap-4" data-type="text" data-answer="d">
+                            <select class="quiz-input p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold w-20 text-center outline-none focus:border-slate-800">
+                                <option value="" disabled selected>-</option>
+                                <option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option>
+                            </select>
+                            <span class="font-bold">6.</span> <span class="text-slate-700">heptagon</span>
+                        </div>
+                        <div class="question flex items-center gap-4" data-type="text" data-answer="c">
+                            <select class="quiz-input p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold w-20 text-center outline-none focus:border-slate-800">
+                                <option value="" disabled selected>-</option>
+                                <option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option>
+                            </select>
+                            <span class="font-bold">7.</span> <span class="text-slate-700">hexagon</span>
+                        </div>
+                        <div class="question flex items-center gap-4" data-type="text" data-answer="e">
+                            <select class="quiz-input p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold w-20 text-center outline-none focus:border-slate-800">
+                                <option value="" disabled selected>-</option>
+                                <option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option>
+                            </select>
+                            <span class="font-bold">8.</span> <span class="text-slate-700">octagon</span>
+                        </div>
+                        <div class="question flex items-center gap-4" data-type="text" data-answer="b">
+                            <select class="quiz-input p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold w-20 text-center outline-none focus:border-slate-800">
+                                <option value="" disabled selected>-</option>
+                                <option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option>
+                            </select>
+                            <span class="font-bold">9.</span> <span class="text-slate-700">pentagon</span>
+                        </div>
+                        <div class="question flex items-center gap-4" data-type="text" data-answer="a">
+                            <select class="quiz-input p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold w-20 text-center outline-none focus:border-slate-800">
+                                <option value="" disabled selected>-</option>
+                                <option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option>
+                            </select>
+                            <span class="font-bold">10.</span> <span class="text-slate-700">quadrilateral</span>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4 font-medium">
+                        <p><span class="font-bold">A</span> 4 sides</p>
+                        <p><span class="font-bold">B</span> 5 sides</p>
+                        <p><span class="font-bold">C</span> 6 sides</p>
+                        <p><span class="font-bold">D</span> 7 sides</p>
+                        <p><span class="font-bold">E</span> 8 sides</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="border-t-2 border-slate-100 pt-8">
+                <p class="font-bold text-lg text-slate-800 mb-2">The angles of a triangle total 180°. Find the measurement of the unknown angle.</p>
+                <p class="font-bold text-lg text-slate-800 mb-8">Classify the triangle as acute, obtuse, or right.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Q11 -->
+                    <div class="question bg-white border border-slate-200 p-6 rounded-xl shadow-sm flex flex-col items-center" data-type="multi" data-answer1="60" data-answer2="acute|acute triangle">
+                        <span class="font-bold w-full text-left mb-4">11.</span>
+                        <svg width="140" height="120" viewBox="0 0 140 120" class="mb-6">
+                            <polygon points="10,110 130,110 70,10" fill="#d1d5db" stroke="#374151" stroke-width="2"/>
+                            <text x="35" y="100" class="svg-text">60°</text>
+                            <text x="85" y="100" class="svg-text">60°</text>
+                            <text x="70" y="40" class="svg-text font-bold text-lg">?</text>
+                        </svg>
+                        <div class="w-full space-y-3">
+                            <div class="flex items-center gap-2">
+                                <input type="text" class="quiz-input multi-1 w-full p-2 border-2 rounded-lg text-center font-bold shadow-sm" inputmode="decimal" autocorrect="off" placeholder="Angle °">
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="text" class="quiz-input multi-2 w-full p-2 border-2 rounded-lg text-center font-bold shadow-sm" placeholder="Classification">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q12 -->
+                    <div class="question bg-white border border-slate-200 p-6 rounded-xl shadow-sm flex flex-col items-center" data-type="multi" data-answer1="90" data-answer2="right|right triangle">
+                        <span class="font-bold w-full text-left mb-4">12.</span>
+                        <svg width="180" height="120" viewBox="0 0 180 120" class="mb-6">
+                            <polygon points="10,110 170,110 170,30" fill="#d1d5db" stroke="#374151" stroke-width="2"/>
+                            <text x="40" y="105" class="svg-text">25°</text>
+                            <text x="145" y="55" class="svg-text">65°</text>
+                            <text x="155" y="100" class="svg-text font-bold text-lg">?</text>
+                        </svg>
+                        <div class="w-full space-y-3">
+                            <div class="flex items-center gap-2">
+                                <input type="text" class="quiz-input multi-1 w-full p-2 border-2 rounded-lg text-center font-bold shadow-sm" inputmode="decimal" autocorrect="off" placeholder="Angle °">
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="text" class="quiz-input multi-2 w-full p-2 border-2 rounded-lg text-center font-bold shadow-sm" placeholder="Classification">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q13 -->
+                    <div class="question bg-white border border-slate-200 p-6 rounded-xl shadow-sm flex flex-col items-center" data-type="multi" data-answer1="60" data-answer2="obtuse|obtuse triangle">
+                        <span class="font-bold w-full text-left mb-4">13.</span>
+                        <svg width="200" height="120" viewBox="0 0 200 120" class="mb-6">
+                            <polygon points="10,40 190,110 30,110" fill="#d1d5db" stroke="#374151" stroke-width="2"/>
+                            <text x="35" y="65" class="svg-text font-bold text-lg">?</text>
+                            <text x="45" y="105" class="svg-text">110°</text>
+                            <text x="150" y="105" class="svg-text">10°</text>
+                        </svg>
+                        <div class="w-full space-y-3">
+                            <div class="flex items-center gap-2">
+                                <input type="text" class="quiz-input multi-1 w-full p-2 border-2 rounded-lg text-center font-bold shadow-sm" inputmode="decimal" autocorrect="off" placeholder="Angle °">
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="text" class="quiz-input multi-2 w-full p-2 border-2 rounded-lg text-center font-bold shadow-sm" placeholder="Classification">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="border-t-2 border-slate-100 pt-8">
+                <p class="font-bold text-lg text-slate-800 mb-6">Identify the triangle.</p>
+                
+                <div class="space-y-4">
+                    <div class="question flex flex-col md:flex-row md:items-center gap-3" data-type="text" data-answer="equilateral|equilateral triangle">
+                        <span class="font-bold w-6">14.</span>
+                        <span class="text-slate-700 flex-1">The lengths of the sides are all the same.</span>
+                        <input type="text" class="quiz-input w-full md:w-64 p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold outline-none" placeholder="Type answer...">
+                    </div>
+                    <div class="question flex flex-col md:flex-row md:items-center gap-3" data-type="text" data-answer="scalene|scalene triangle">
+                        <span class="font-bold w-6">15.</span>
+                        <span class="text-slate-700 flex-1">The lengths of the sides are all different.</span>
+                        <input type="text" class="quiz-input w-full md:w-64 p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold outline-none" placeholder="Type answer...">
+                    </div>
+                    <div class="question flex flex-col md:flex-row md:items-center gap-3" data-type="text" data-answer="isosceles|isosceles triangle">
+                        <span class="font-bold w-6">16.</span>
+                        <span class="text-slate-700 flex-1">The lengths of at least 2 sides are the same.</span>
+                        <input type="text" class="quiz-input w-full md:w-64 p-2 border-2 border-slate-300 rounded-lg shadow-sm font-bold outline-none" placeholder="Type answer...">
+                    </div>
+                </div>
+            </section>
+
+            <section class="border-t-2 border-slate-100 pt-8">
+                <p class="font-bold text-lg text-slate-800 mb-6">Write translation, rotation, or reflection to show how the figure moved.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Q17 -->
+                    <div class="question flex flex-col items-center gap-4" data-type="text" data-answer="reflection|a reflection">
+                        <span class="font-bold w-full text-left">17.</span>
+                        <svg width="200" height="120" viewBox="0 0 200 120" class="border border-slate-300">
+                            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+                            </pattern>
+                            <rect width="200" height="120" fill="url(#grid)" />
+                            <line x1="100" y1="0" x2="100" y2="120" stroke="#0f172a" stroke-width="2"/>
+                            <!-- Left Arrow -->
+                            <polygon points="90,60 50,60 50,40 10,70 50,100 50,80 90,80" fill="white" stroke="#0f172a" stroke-width="2"/>
+                            <!-- Right Arrow -->
+                            <polygon points="110,60 150,60 150,40 190,70 150,100 150,80 110,80" fill="white" stroke="#0f172a" stroke-width="2"/>
+                            <path d="M 80 70 L 95 70 M 90 65 L 95 70 L 90 75" fill="none" stroke="#0f172a" stroke-width="1.5"/>
+                            <path d="M 120 70 L 105 70 M 110 65 L 105 70 L 110 75" fill="none" stroke="#0f172a" stroke-width="1.5"/>
+                        </svg>
+                        <input type="text" class="quiz-input w-full p-2 border-2 border-slate-300 rounded-lg text-center font-bold outline-none" placeholder="...">
+                    </div>
+
+                    <!-- Q18 -->
+                    <div class="question flex flex-col items-center gap-4" data-type="text" data-answer="translation|a translation">
+                        <span class="font-bold w-full text-left">18.</span>
+                        <svg width="200" height="120" viewBox="0 0 200 120" class="border border-slate-300">
+                            <rect width="200" height="120" fill="url(#grid)" />
+                            <polygon points="30,110 30,50 90,110" fill="white" stroke="#0f172a" stroke-width="2"/>
+                            <polygon points="110,70 110,10 170,70" fill="white" stroke="#0f172a" stroke-width="2"/>
+                            <path d="M 60 80 L 140 40 M 135 38 L 140 40 L 138 45" fill="none" stroke="#0f172a" stroke-width="2"/>
+                        </svg>
+                        <input type="text" class="quiz-input w-full p-2 border-2 border-slate-300 rounded-lg text-center font-bold outline-none" placeholder="...">
+                    </div>
+
+                    <!-- Q19 -->
+                    <div class="question flex flex-col items-center gap-4" data-type="text" data-answer="rotation|a rotation">
+                        <span class="font-bold w-full text-left">19.</span>
+                        <svg width="200" height="120" viewBox="0 0 200 120" class="border border-slate-300">
+                            <rect width="200" height="120" fill="url(#grid)" />
+                            <!-- Crosshairs -->
+                            <line x1="100" y1="0" x2="100" y2="120" stroke="#94a3b8" stroke-width="2"/>
+                            <line x1="0" y1="60" x2="200" y2="60" stroke="#94a3b8" stroke-width="2"/>
+                            <!-- Top Left L -->
+                            <polygon points="80,60 80,40 40,40 40,20 100,20 100,60" fill="white" stroke="#0f172a" stroke-width="2"/>
+                            <!-- Bottom Right L -->
+                            <polygon points="100,60 120,60 120,100 140,100 140,40 100,40" fill="white" stroke="#0f172a" stroke-width="2" transform="rotate(90, 100, 60)"/>
+                            <!-- Curved arrow -->
+                            <path d="M 60 25 A 50 50 0 0 1 140 50" fill="none" stroke="#0f172a" stroke-width="2"/>
+                            <polygon points="140,50 135,40 145,45" fill="#0f172a"/>
+                        </svg>
+                        <input type="text" class="quiz-input w-full p-2 border-2 border-slate-300 rounded-lg text-center font-bold outline-none" placeholder="...">
+                    </div>
+                </div>
+            </section>
+
+            <section class="border-t-2 border-slate-100 pt-8">
+                <p class="font-bold text-lg text-slate-800 mb-6">Use the symbol for similar (~) or congruent (≅) to compare the figures.</p>
+                
+                <div class="flex flex-wrap justify-center gap-10">
+                    <div class="question flex items-center gap-3" data-type="text" data-answer="~|similar">
+                        <span class="font-bold">20.</span>
+                        <svg width="40" height="40"><rect width="40" height="40" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/></svg>
+                        <select class="quiz-input p-2 border-2 rounded-full font-bold text-xl outline-none text-center h-12 w-12 appearance-none">
+                            <option value="" disabled selected></option>
+                            <option value="~">~</option>
+                            <option value="≅">≅</option>
+                        </select>
+                        <svg width="20" height="20"><rect width="20" height="20" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/></svg>
+                    </div>
+
+                    <div class="question flex items-center gap-3" data-type="text" data-answer="≅|congruent">
+                        <span class="font-bold">21.</span>
+                        <svg width="40" height="40"><polygon points="20,0 40,40 0,40" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/></svg>
+                        <select class="quiz-input p-2 border-2 rounded-full font-bold text-xl outline-none text-center h-12 w-12 appearance-none">
+                            <option value="" disabled selected></option>
+                            <option value="~">~</option>
+                            <option value="≅">≅</option>
+                        </select>
+                        <svg width="40" height="40"><polygon points="20,0 40,40 0,40" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/></svg>
+                    </div>
+
+                    <div class="question flex items-center gap-3" data-type="text" data-answer="≅|congruent">
+                        <span class="font-bold">22.</span>
+                        <svg width="40" height="30"><polygon points="10,0 30,0 40,30 0,30" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/></svg>
+                        <select class="quiz-input p-2 border-2 rounded-full font-bold text-xl outline-none text-center h-12 w-12 appearance-none">
+                            <option value="" disabled selected></option>
+                            <option value="~">~</option>
+                            <option value="≅">≅</option>
+                        </select>
+                        <svg width="40" height="30"><polygon points="10,0 30,0 40,30 0,30" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/></svg>
+                    </div>
+
+                    <div class="question flex items-center gap-3" data-type="text" data-answer="~|similar">
+                        <span class="font-bold">23.</span>
+                        <svg width="30" height="30"><polygon points="10,0 20,0 30,10 30,20 20,30 10,30 0,20 0,10" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/></svg>
+                        <select class="quiz-input p-2 border-2 rounded-full font-bold text-xl outline-none text-center h-12 w-12 appearance-none">
+                            <option value="" disabled selected></option>
+                            <option value="~">~</option>
+                            <option value="≅">≅</option>
+                        </select>
+                        <svg width="40" height="40"><polygon points="13,0 27,0 40,13 40,27 27,40 13,40 0,27 0,13" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/></svg>
+                    </div>
+                </div>
+            </section>
+
+            <section class="border-t-2 border-slate-100 pt-8">
+                <p class="font-bold text-lg text-slate-800 mb-6">Find the perimeter.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="question flex flex-col items-center gap-4" data-type="math-unit" data-answer="18" data-unit="in.">
+                        <span class="font-bold w-full text-left">24.</span>
+                        <svg width="100" height="90" viewBox="0 0 100 90">
+                            <polygon points="50,10 90,80 10,80" fill="white" stroke="#0f172a" stroke-width="2"/>
+                            <text x="50" y="95" text-anchor="middle" font-size="12">6 in.</text>
+                        </svg>
+                        <div class="flex items-center gap-1 mt-auto">
+                            <input type="text" class="quiz-input math-input w-16 p-2 border-2 rounded text-center font-bold" inputmode="decimal" autocorrect="off">
+                            <select class="quiz-input unit-select p-2 border-2 rounded font-bold text-slate-600 bg-white">
+                                <option value="" disabled selected>-</option>
+                                <option value="in.">in.</option><option value="in.²">in.²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="question flex flex-col items-center gap-4" data-type="math-unit" data-answer="18" data-unit="ft">
+                        <span class="font-bold w-full text-left">25.</span>
+                        <svg width="120" height="90" viewBox="0 0 120 90">
+                            <polygon points="40,10 110,10 80,80 10,80" fill="#d1d5db" stroke="#0f172a" stroke-width="2"/>
+                            <text x="50" y="95" text-anchor="middle" font-size="12">5 ft</text>
+                            <text x="10" y="50" text-anchor="middle" font-size="12">4 ft</text>
+                        </svg>
+                        <div class="flex items-center gap-1 mt-auto">
+                            <input type="text" class="quiz-input math-input w-16 p-2 border-2 rounded text-center font-bold" inputmode="decimal" autocorrect="off">
+                            <select class="quiz-input unit-select p-2 border-2 rounded font-bold text-slate-600 bg-white">
+                                <option value="" disabled selected>-</option>
+                                <option value="ft">ft</option><option value="ft²">ft²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="question flex flex-col items-center gap-4" data-type="math-unit" data-answer="16" data-unit="cm">
+                        <span class="font-bold w-full text-left">26.</span>
+                        <svg width="120" height="90" viewBox="0 0 120 90">
+                            <polygon points="30,30 60,30 110,80 30,80" fill="#d1d5db" stroke="#0f172a" stroke-width="2"/>
+                            <text x="70" y="95" text-anchor="middle" font-size="12">6 cm</text>
+                            <text x="15" y="60" text-anchor="middle" font-size="12">3 cm</text>
+                            <text x="95" y="45" text-anchor="middle" font-size="12">5 cm</text>
+                            <text x="45" y="20" text-anchor="middle" font-size="12">2 cm</text>
+                        </svg>
+                        <div class="flex items-center gap-1 mt-auto">
+                            <input type="text" class="quiz-input math-input w-16 p-2 border-2 rounded text-center font-bold" inputmode="decimal" autocorrect="off">
+                            <select class="quiz-input unit-select p-2 border-2 rounded font-bold text-slate-600 bg-white">
+                                <option value="" disabled selected>-</option>
+                                <option value="cm">cm</option><option value="cm²">cm²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="question flex flex-col items-center gap-4" data-type="math-unit" data-answer="30" data-unit="yd">
+                        <span class="font-bold w-full text-left">27.</span>
+                        <svg width="100" height="90" viewBox="0 0 100 90">
+                            <polygon points="50,10 90,40 75,80 25,80 10,40" fill="white" stroke="#0f172a" stroke-width="2"/>
+                            <text x="50" y="95" text-anchor="middle" font-size="12">6 yd</text>
+                        </svg>
+                        <div class="flex items-center gap-1 mt-auto">
+                            <input type="text" class="quiz-input math-input w-16 p-2 border-2 rounded text-center font-bold" inputmode="decimal" autocorrect="off">
+                            <select class="quiz-input unit-select p-2 border-2 rounded font-bold text-slate-600 bg-white">
+                                <option value="" disabled selected>-</option>
+                                <option value="yd">yd</option><option value="yd²">yd²</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SECTION 2: Angles & Classification -->
-            <section>
-                <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-slate-200 pb-2 mb-6">Angles & Triangle Classification</h2>
-                <p class="text-slate-600 mb-6 font-medium">The angles of a triangle total 180°. Find the measurement of the unknown angle and classify the triangle.</p>
+            <section class="border-t-2 border-slate-100 pt-8">
+                <p class="font-bold text-lg text-slate-800 mb-6">Find the area.</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Q4 (Math + Text variation) -->
-                    <div class="question bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col items-center" data-type="multi" data-answer1="90" data-answer2="right|right triangle">
-                        <span class="font-bold w-full text-left mb-2">4. Find the angle, then classify the triangle.</span>
-                        <svg width="180" height="120" viewBox="0 0 180 120" class="mb-4">
-                            <polygon points="20,100 160,100 160,40" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-                            <text x="60" y="95" class="svg-text" text-anchor="middle">25°</text>
-                            <text x="140" y="60" class="svg-text" text-anchor="middle">65°</text>
-                            <text x="150" y="95" class="svg-text text-purple-600" text-anchor="middle">?</text>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="question flex flex-col items-center gap-4" data-type="math-unit" data-answer="28" data-unit="yd²">
+                        <span class="font-bold w-full text-left">28.</span>
+                        <svg width="200" height="120" viewBox="0 0 200 120">
+                            <rect x="20" y="20" width="160" height="80" fill="#d1d5db" stroke="#0f172a" stroke-width="2"/>
+                            <text x="100" y="15" text-anchor="middle" font-size="14">7 yd</text>
+                            <text x="195" y="65" text-anchor="start" font-size="14">4 yd</text>
                         </svg>
-                        <div class="w-full space-y-3">
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-slate-500 text-sm w-16">Angle:</span>
-                                <input type="text" class="quiz-input multi-1 w-24 p-2 border-2 rounded-lg text-center font-bold shadow-sm" inputmode="decimal" autocorrect="off">
-                                <span class="font-bold text-slate-600">°</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-slate-500 text-sm w-16">Classify:</span>
-                                <input type="text" class="quiz-input multi-2 w-full p-2 border-2 rounded-lg font-bold shadow-sm" placeholder="acute, obtuse, or right...">
-                            </div>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg" inputmode="decimal" autocorrect="off">
+                            <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 bg-white text-lg">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="yd">yd</option><option value="yd²">yd²</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- Q5 (Vocabulary Variation) -->
-                    <div class="question bg-slate-50 p-6 rounded-xl border border-slate-200" data-type="text" data-answer="isosceles|isosceles triangle">
-                        <span class="font-bold w-full text-left mb-4 block">5. Identify the triangle by its side lengths.</span>
-                        <p class="text-slate-700 mb-4 font-medium italic">"The lengths of at least 2 sides are the same."</p>
-                        <input type="text" class="quiz-input w-full p-3 border-2 rounded-lg font-bold shadow-sm" placeholder="Type triangle name...">
+                    <div class="question flex flex-col items-center gap-4" data-type="math-unit" data-answer="22" data-unit="ft²">
+                        <span class="font-bold w-full text-left">29.</span>
+                        <svg width="220" height="140" viewBox="0 0 220 140">
+                            <!-- Composite shape: top rect 6x3, bottom cutouts 1x4 on left and right?
+                                 Actually the key says (6x3) + (1x4) = 22.
+                                 The image shows a top block. Below it, on the left and right are 1ft ledges.
+                                 The middle drops down. Width of middle drop down is 4ft.
+                                 Wait, 1ft ledge + 4ft middle + 1ft ledge = 6ft total top width!
+                                 Height of top part is 3ft. Height of bottom part is NOT GIVEN explicitly.
+                                 Wait, the key formula says `(6 ft x 3 ft) + (1 ft x 4 ft)`.
+                                 Look closely at image 2:
+                                 Top horizontal line is 6ft.
+                                 Right vertical line is 3ft.
+                                 Left vertical line is... unknown?
+                                 There is a `1 ft` horizontal ledge on the bottom left.
+                                 There is a `1 ft` horizontal ledge on the bottom right.
+                                 The total width is 6. So 6 - 1 - 1 = 4ft width for the middle part.
+                                 Wait, formula is `(6x3) + (1x4)`. That means 1 is width and 4 is height... or 4 is width and 1 is height?
+                                 Let's assume the formula `(6 ft x 3 ft)` is the big rectangle, and `(1 ft x 4 ft)` is...
+                                 Let's look at the image again. 
+                                 Top is 6ft. Right side is 3ft down. Then 1ft left. Then 4ft down?
+                                 Oh, the text under the shape says `4 ft` for the very bottom line.
+                                 So the middle section is 4 ft wide.
+                                 If top is 6ft, and bottom is 4ft, then the cutouts are 1ft and 1ft. 
+                                 How tall are the cutouts?
+                                 Ah, the formula in the key is `(6 ft x 3 ft) + (1 ft x 4 ft) = 22`.
+                                 This implies the bottom part is 4 ft wide and 1 ft tall!
+                                 Wait, `(1 ft x 4 ft)`. 1 ft height, 4 ft width. 
+                                 Let's draw that: Top rect 120 wide (6) x 60 tall (3). Bottom rect 80 wide (4) x 20 tall (1).
+                            -->
+                            <polygon points="50,20 170,20 170,80 150,80 150,100 70,100 70,80 50,80" fill="#d1d5db" stroke="#0f172a" stroke-width="2"/>
+                            <text x="110" y="15" text-anchor="middle" font-size="14">6 ft</text>
+                            <text x="185" y="55" text-anchor="middle" font-size="14">3 ft</text>
+                            <text x="60" y="95" text-anchor="middle" font-size="12">1 ft</text>
+                            <text x="160" y="95" text-anchor="middle" font-size="12">1 ft</text>
+                            <text x="110" y="115" text-anchor="middle" font-size="14">4 ft</text>
+                        </svg>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg" inputmode="decimal" autocorrect="off">
+                            <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 bg-white text-lg">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="ft">ft</option><option value="ft²">ft²</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SECTION 3: Perimeter & Area -->
-            <section>
-                <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-slate-200 pb-2 mb-6">Perimeter & Area</h2>
-
-                <div class="space-y-8">
-                    <!-- Q6 (Perimeter) -->
-                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm flex flex-col sm:flex-row items-center gap-6" data-type="math-unit" data-answer="18" data-unit="ft">
-                        <div class="flex-1 w-full">
-                            <p class="font-bold text-lg mb-2">6. Find the perimeter.</p>
-                            <div class="flex items-center gap-2">
-                                <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
-                                <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-purple-500 bg-white text-lg">
-                                    <option value="" disabled selected>Unit</option>
-                                    <option value="ft">ft</option>
-                                    <option value="ft²">ft²</option>
-                                </select>
-                            </div>
-                        </div>
-                        <svg width="140" height="120" viewBox="0 0 140 120" class="flex-shrink-0 bg-slate-50 rounded-lg p-2 border border-slate-200">
-                            <polygon points="40,100 120,100 100,20 20,20" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-                            <text x="15" y="65" class="svg-text" text-anchor="middle">4 ft</text>
-                            <text x="80" y="115" class="svg-text" text-anchor="middle">5 ft</text>
+            <section class="border-t-2 border-slate-100 pt-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="question" data-type="math-unit" data-answer="700" data-unit="mm²">
+                        <p class="font-bold text-lg text-slate-800 mb-6">Find the area of the shaded part.</p>
+                        <span class="font-bold w-full text-left mb-2 block">30.</span>
+                        <svg width="240" height="100" viewBox="0 0 240 100" class="mb-4">
+                            <rect x="20" y="20" width="160" height="60" fill="white" stroke="#0f172a" stroke-width="2"/>
+                            <polygon points="20,20 20,80 180,80" fill="#d1d5db" stroke="#0f172a" stroke-width="1"/>
+                            <text x="100" y="15" text-anchor="middle" font-size="14">70 mm</text>
+                            <text x="210" y="55" text-anchor="middle" font-size="14">20 mm</text>
                         </svg>
-                    </div>
-
-                    <!-- Q7 (Area of Rectangle) -->
-                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm flex flex-col sm:flex-row items-center gap-6" data-type="math-unit" data-answer="28" data-unit="yd²">
-                        <div class="flex-1 w-full">
-                            <p class="font-bold text-lg mb-2">7. Find the area.</p>
-                            <div class="flex items-center gap-2">
-                                <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
-                                <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-purple-500 bg-white text-lg">
-                                    <option value="" disabled selected>Unit</option>
-                                    <option value="yd">yd</option>
-                                    <option value="yd²">yd²</option>
-                                </select>
-                            </div>
-                        </div>
-                        <svg width="160" height="120" viewBox="0 0 160 120" class="flex-shrink-0 bg-slate-50 rounded-lg p-2 border border-slate-200">
-                            <rect x="20" y="30" width="120" height="60" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-                            <text x="80" y="20" class="svg-text" text-anchor="middle">7 yd</text>
-                            <text x="155" y="65" class="svg-text" text-anchor="middle">4 yd</text>
-                        </svg>
-                    </div>
-
-                    <!-- Q8 (Composite Area) -->
-                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm flex flex-col sm:flex-row items-center gap-6" data-type="math-unit" data-answer="22" data-unit="ft²">
-                        <div class="flex-1 w-full">
-                            <p class="font-bold text-lg mb-2">8. Find the total area.</p>
-                            <div class="flex items-center gap-2">
-                                <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
-                                <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-purple-500 bg-white text-lg">
-                                    <option value="" disabled selected>Unit</option>
-                                    <option value="ft">ft</option>
-                                    <option value="ft²">ft²</option>
-                                </select>
-                            </div>
-                        </div>
-                        <svg width="160" height="120" viewBox="0 0 160 120" class="flex-shrink-0 bg-slate-50 rounded-lg p-2 border border-slate-200">
-                            <!-- Top large rect -->
-                            <rect x="20" y="20" width="120" height="60" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-                            <!-- Bottom small rect attached to center-ish -->
-                            <rect x="40" y="80" width="80" height="20" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-                            <!-- Remove overlapping border -->
-                            <line x1="42" y1="80" x2="118" y2="80" stroke="#f3e8ff" stroke-width="3"/>
-                            
-                            <text x="80" y="15" class="svg-text" text-anchor="middle">6 ft</text>
-                            <text x="155" y="55" class="svg-text" text-anchor="middle">3 ft</text>
-                            <text x="80" y="115" class="svg-text" text-anchor="middle">4 ft</text>
-                            <text x="25" y="95" class="svg-text" text-anchor="middle">1 ft</text>
-                        </svg>
-                    </div>
-
-                    <!-- Q9 (Shaded Area) -->
-                    <div class="question bg-white border-2 border-slate-100 p-6 rounded-xl shadow-sm flex flex-col sm:flex-row items-center gap-6" data-type="math-unit" data-answer="700" data-unit="mm²">
-                        <div class="flex-1 w-full">
-                            <p class="font-bold text-lg mb-2">9. Find the area of the <span class="italic text-purple-700">shaded</span> part.</p>
-                            <div class="flex items-center gap-2">
-                                <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
-                                <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-purple-500 bg-white text-lg">
-                                    <option value="" disabled selected>Unit</option>
-                                    <option value="mm">mm</option>
-                                    <option value="mm²">mm²</option>
-                                </select>
-                            </div>
-                        </div>
-                        <svg width="200" height="100" viewBox="0 0 200 100" class="flex-shrink-0 bg-slate-50 rounded-lg p-2 border border-slate-200">
-                            <!-- Outer Rect (Unshaded) -->
-                            <rect x="20" y="30" width="140" height="50" fill="white" stroke="#0f172a" stroke-width="2"/>
-                            <!-- Shaded Triangle -->
-                            <polygon points="20,30 20,80 160,80" fill="#d8b4fe" stroke="#9333ea" stroke-width="1"/>
-                            
-                            <text x="90" y="20" class="svg-text" text-anchor="middle">70 mm</text>
-                            <text x="180" y="60" class="svg-text" text-anchor="middle">20 mm</text>
-                        </svg>
-                    </div>
-
-                    <!-- Q10 (Word Problem) -->
-                    <div class="question bg-purple-50 border-2 border-purple-100 p-6 rounded-xl shadow-sm" data-type="math-unit" data-answer="330" data-unit="ft²">
-                        <p class="font-bold text-lg mb-4">10. Mr. Garcia is putting new tile in his sunroom. The length of the room is 22 feet and the width is 15 feet. What is the area of the sunroom?</p>
-                        <div class="flex items-center gap-3">
-                            <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm bg-white" inputmode="decimal" autocorrect="off">
-                            <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 outline-none focus:border-purple-500 bg-white text-lg">
+                        <div class="flex items-center gap-2">
+                            <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg" inputmode="decimal" autocorrect="off">
+                            <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 bg-white text-lg">
                                 <option value="" disabled selected>Unit</option>
-                                <option value="ft">ft</option>
-                                <option value="ft²">ft²</option>
+                                <option value="mm">mm</option><option value="mm²">mm²</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="question" data-type="math-unit" data-answer="330" data-unit="ft²">
+                        <p class="font-bold text-lg text-slate-800 mb-6">Solve and label your answer.</p>
+                        <p class="font-bold text-lg mb-4"><span class="mr-2">31.</span>Mr. Garcia is putting new tile in his sunroom. The length of the room is 22 feet and the width is 15 feet. What is the area of the sunroom?</p>
+                        <div class="flex items-center gap-2">
+                            <input type="text" class="quiz-input math-input w-24 p-3 border-2 rounded-lg text-center font-bold text-lg shadow-sm" inputmode="decimal" autocorrect="off">
+                            <select class="quiz-input unit-select p-3 border-2 rounded-lg font-bold text-slate-600 bg-white text-lg">
+                                <option value="" disabled selected>Unit</option>
+                                <option value="ft">ft</option><option value="ft²">ft²</option>
                             </select>
                         </div>
                     </div>
@@ -287,7 +573,7 @@
 
         </div>
 
-        <button onclick="gradeTest()" class="w-full mt-12 bg-purple-600 hover:bg-purple-700 text-white font-black text-xl py-4 rounded-xl transition-all shadow-xl active:scale-95 flex justify-center items-center gap-3">
+        <button onclick="gradeTest()" class="w-full mt-12 bg-slate-800 hover:bg-slate-900 text-white font-black text-xl py-4 rounded-xl transition-all shadow-xl active:scale-95 flex justify-center items-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -295,13 +581,12 @@
         </button>
     </div>
 
-    <!-- RESULTS PAGE (Hidden initially) -->
     <div id="results-page" class="hidden max-w-4xl mx-auto mt-10 p-4">
-        <div id="capture-area" class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-t-8 border-purple-600">
+        <div id="capture-area" class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-t-8 border-slate-800">
             
             <div class="text-center mb-10">
                 <h2 class="text-4xl font-black text-slate-800 mb-2">Assessment Complete!</h2>
-                <div id="student-display" class="text-2xl text-purple-600 font-bold mb-6 uppercase tracking-wider"></div>
+                <div id="student-display" class="text-2xl text-slate-600 font-bold mb-6 uppercase tracking-wider"></div>
                 
                 <div class="bg-slate-50 inline-block p-8 rounded-2xl shadow-inner">
                     <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Final Score</p>
@@ -372,20 +657,19 @@
                 if (qType === 'text') {
                     const input = q.querySelector('.quiz-input');
                     const rawUserAnswer = input.value.trim();
-                    const expectedArray = q.getAttribute('data-answer').toLowerCase().split('|'); // Allows multiple correct answers
+                    const expectedArray = q.getAttribute('data-answer').toLowerCase().split('|'); 
                     
                     if (expectedArray.includes(rawUserAnswer.toLowerCase())) {
                         isCorrect = true;
                     }
                     
                     userAnswersDisplay.push(rawUserAnswer || "[Blank]");
-                    expectedAnswersDisplay.push(expectedArray[0]); // Show primary answer in review
+                    expectedAnswersDisplay.push(expectedArray[0]); 
                     
                     input.classList.add(isCorrect ? 'correct' : 'incorrect');
                     input.disabled = true;
 
                 } else if (qType === 'multi') {
-                    // Handles Q4 with two inputs (Angle & Classification)
                     const input1 = q.querySelector('.multi-1');
                     const input2 = q.querySelector('.multi-2');
                     
@@ -437,14 +721,13 @@
                     reportBody += `Q${index + 1}: ${userAnswersDisplay.join(' | ')} (Incorrect, expected: ${expectedAnswersDisplay.join(' | ')})\n`;
                     
                     // --- CREATE VISUAL REVIEW CARD ---
-                    // Clone the entire question div to preserve SVGs and layout
                     let clone = q.cloneNode(true);
-                    clone.classList.add('review-card', 'border-red-200', 'bg-red-50');
-                    clone.classList.remove('bg-white', 'bg-slate-50', 'bg-purple-50');
+                    clone.classList.add('review-card', 'border-2', 'border-red-200', 'bg-red-50', 'p-6', 'rounded-xl', 'relative');
+                    clone.classList.remove('bg-white', 'bg-slate-50', 'bg-indigo-50', 'border-slate-200');
                     
                     // Add Feedback Banner inside the clone
                     let feedbackBanner = document.createElement('div');
-                    feedbackBanner.className = "mt-6 p-4 bg-white border-2 border-red-300 rounded-lg";
+                    feedbackBanner.className = "mt-6 p-4 bg-white border-2 border-red-300 rounded-lg w-full";
                     feedbackBanner.innerHTML = `
                         <p class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Your Answer</p>
                         <p class="text-lg font-bold text-red-600 line-through mb-3">${userAnswersDisplay.join(' | ')}</p>
@@ -461,7 +744,7 @@
             const score = Math.round((correctCount / questions.length) * 100);
             reportBody += `\nFinal Score: ${score}% (${correctCount}/${questions.length})`;
             
-            // Set Score Color based on performance
+            // Set Score Color
             const scoreDisplay = document.getElementById('score-display');
             scoreDisplay.innerText = `${score}%`;
             if (score >= 80) scoreDisplay.className = "text-6xl font-extrabold text-green-600";
