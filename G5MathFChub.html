@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Flashcard Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+        
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        
+        /* Custom Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col items-center justify-center p-6">
+
+    <!-- Main App Container -->
+    <div id="app" class="w-full flex justify-center"></div>
+
+    <script>
+        // --- STATE ---
+        const state = {
+            view: 'menu',
+            currentDeckId: null,
+            cards: [],
+            currentIndex: 0,
+            isFlipped: false
+        };
+
+        // --- ICONS (SVG Strings) ---
+        const icons = {
+            calculator: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16.01" y1="10" y2="10"/><line x1="16" x2="16.01" y1="14" y2="14"/><line x1="16" x2="16.01" y1="18" y2="18"/><line x1="8" x2="8.01" y1="10" y2="10"/><line x1="8" x2="8.01" y1="14" y2="14"/><line x1="8" x2="8.01" y1="18" y2="18"/><line x1="12" x2="12.01" y1="10" y2="10"/><line x1="12" x2="12.01" y1="14" y2="14"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>`,
+            percent: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-rose-500"><line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>`,
+            layers: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+            shapes: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>`,
+            home: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+            shuffle: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></svg>`,
+            arrowRL: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>`
+        };
+
+        // --- DATA ---
+        const getGCD = (a, b) => (b === 0 ? a : getGCD(b, a % b));
+
+        const decks = {
+            multiplication: {
+                title: "Multiplication 6-12",
+                icon: icons.calculator,
+                color: "bg-indigo-600",
+                lightColor: "bg-indigo-50",
+                textColor: "text-indigo-600",
+                description: "Master times tables for 6 through 12.",
+                generate: () => {
+                    let d = [];
+                    for (let i = 6; i <= 12; i++) {
+                        for (let j = 1; j <= 12; j++) {
+                            d.push({ question: `${i} × ${j}`, answer: i * j, category: "Multiplication" });
+                        }
+                    }
+                    return d.sort(() => Math.random() - 0.5);
+                }
+            },
+            division: {
+                title: "Division 6-12",
+                icon: icons.percent,
+                color: "bg-rose-600",
+                lightColor: "bg-rose-50",
+                textColor: "text-rose-600",
+                description: "Practice division facts related to 6-12.",
+                generate: () => {
+                    let d = [];
+                    for (let divisor = 6; divisor <= 12; divisor++) {
+                        for (let quotient = 1; quotient <= 12; quotient++) {
+                            d.push({ question: `${divisor * quotient} ÷ ${divisor}`, answer: quotient, category: "Division" });
+                        }
+                    }
+                    return d.sort(() => Math.random() - 0.5);
+                }
+            },
+            fractions: {
+                title: "Simplifying Fractions",
+                icon: icons.layers,
+                color: "bg-amber-600",
+                lightColor: "bg-amber-50",
+                textColor: "text-amber-600",
+                description: "Reduce fractions to their simplest form.",
+                generate: () => {
+                    let d = [];
+                    for (let den = 4; den <= 24; den++) {
+                        for (let num = 2; num < den; num++) {
+                            const common = getGCD(num, den);
+                            if (common > 1) {
+                                d.push({ question: { n: num, d: den }, answer: { n: num / common, d: den / common }, category: "Fractions" });
+                            }
+                        }
+                    }
+                    return d.sort(() => Math.random() - 0.5).slice(0, 50);
+                }
+            },
+            geometry: {
+                title: "5th Grade Geometry",
+                icon: icons.shapes,
+                color: "bg-emerald-600",
+                lightColor: "bg-emerald-50",
+                textColor: "text-emerald-600",
+                description: "Classify shapes and recall angle rules.",
+                generate: () => {
+                    return [
+                        { answer: "A = l × w", question: "The formula for the Area of a Rectangle\n(l = length, w = width)", category: "Measurement" },
+                        { answer: "P = 2l + 2w\nOR\nP = 2(l + w)", question: "The formula for the Perimeter of a Rectangle\n(l = length, w = width)", category: "Measurement" },
+                        { answer: "A = s × s (or s²)", question: "The formula for the Area of a Square\n(s = side length)", category: "Measurement" },
+                        { answer: "P = 4s", question: "The formula for the Perimeter of a Square\n(s = side length)", category: "Measurement" },
+                        { answer: "A = ½ × b × h", question: "The formula for the Area of a Triangle\n(b = base, h = height)", category: "Measurement" },
+                        { answer: "Sum of all sides", question: "The formula for the Perimeter of a Triangle", category: "Measurement" },
+                        { answer: "180°", question: "The sum of the interior angles in any triangle.", category: "Angle Sums" },
+                        { answer: "360°", question: "The sum of the interior angles in any quadrilateral.", category: "Angle Sums" },
+                        { answer: "Equilateral Triangle", question: "A triangle with all 3 sides equal in length.", category: "Triangles" },
+                        { answer: "Isosceles Triangle", question: "A triangle with at least 2 sides equal in length.", category: "Triangles" },
+                        { answer: "Scalene Triangle", question: "A triangle where all 3 sides have different lengths.", category: "Triangles" },
+                        { answer: "Right Triangle", question: "A triangle with exactly one 90° angle.", category: "Triangles" },
+                        { answer: "Acute Triangle", question: "A triangle where all three angles are less than 90°.", category: "Triangles" },
+                        { answer: "Obtuse Triangle", question: "A triangle with one angle greater than 90°.", category: "Triangles" },
+                        { answer: "Parallelogram", question: "A quadrilateral with 2 pairs of parallel sides.", category: "Quadrilaterals" },
+                        { answer: "Rhombus", question: "A parallelogram with 4 equal sides.", category: "Quadrilaterals" },
+                        { answer: "Trapezoid", question: "A quadrilateral with exactly one pair of parallel sides.", category: "Quadrilaterals" },
+                        { answer: "Rectangle", question: "A parallelogram with 4 right angles.", category: "Quadrilaterals" },
+                        { answer: "Square", question: "A parallelogram with 4 equal sides AND 4 right angles.", category: "Quadrilaterals" },
+                        { answer: "Perpendicular Lines", question: "Lines that intersect to form right angles (90°).", category: "Lines & Angles" },
+                        { answer: "Parallel Lines", question: "Lines in a plane that never intersect and stay the same distance apart.", category: "Lines & Angles" },
+                        { answer: "Acute Angle", question: "An angle that measures less than 90°.", category: "Lines & Angles" },
+                        { answer: "Obtuse Angle", question: "An angle that measures more than 90° but less than 180°.", category: "Lines & Angles" },
+                        { answer: "Straight Angle", question: "An angle that measures exactly 180° (a flat line).", category: "Lines & Angles" },
+                        { answer: "Ray", question: "A part of a line that has one endpoint and goes on forever in one direction.", category: "Lines & Angles" },
+                        { answer: "Line Segment", question: "A part of a line with two endpoints.", category: "Lines & Angles" }
+                    ].sort(() => Math.random() - 0.5);
+                }
+            }
+        };
+
+        // --- RENDERING HELPERS ---
+        const app = document.getElementById('app');
+
+        const renderCardContent = (content, isBack = false) => {
+            if (typeof content === 'object') {
+                return `
+                    <div class="flex flex-col items-center">
+                        <span class="${isBack ? 'text-white' : 'text-slate-800'} text-5xl font-bold">${content.n}</span>
+                        <div class="w-20 h-1.5 ${isBack ? 'bg-white' : 'bg-slate-800'} my-2 rounded-full"></div>
+                        <span class="${isBack ? 'text-white' : 'text-slate-800'} text-5xl font-bold">${content.d}</span>
+                    </div>
+                `;
+            }
+            return `<p class="${isBack ? 'text-white text-4xl' : 'text-slate-800 text-2xl'} font-bold leading-tight whitespace-pre-line">${content}</p>`;
+        };
+
+        // --- VIEWS ---
+        const renderMenu = () => {
+            let deckHTML = '';
+            for (const [id, deck] of Object.entries(decks)) {
+                deckHTML += `
+                    <button onclick="selectDeck('${id}')" class="group relative bg-white p-6 rounded-3xl shadow-lg border border-slate-100 flex flex-col items-center text-center space-y-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                        <div class="p-3 rounded-2xl ${deck.lightColor} group-hover:scale-110 transition-transform">
+                            ${deck.icon}
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 leading-tight">${deck.title}</h3>
+                            <p class="text-xs text-slate-400 mt-1">${deck.description}</p>
+                        </div>
+                    </button>
+                `;
+            }
+
+            app.innerHTML = `
+                <div class="max-w-4xl w-full space-y-12 animate-fade-in">
+                    <div class="text-center space-y-4">
+                        <h1 class="text-5xl font-black tracking-tighter text-slate-900 uppercase">Flashcard Hub</h1>
+                        <p class="text-slate-500 text-lg font-medium">Select a category to begin</p>
+                    </div>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        ${deckHTML}
+                    </div>
+                </div>
+            `;
+        };
+
+        const renderQuiz = () => {
+            const currentDeck = decks[state.currentDeckId];
+            const currentCard = state.cards[state.currentIndex];
+
+            app.innerHTML = `
+                <div class="max-w-md w-full space-y-8 animate-slide-up">
+                    <div class="flex items-center justify-between">
+                        <button onclick="goToMenu()" class="flex items-center gap-2 text-slate-400 hover:text-slate-900 font-bold text-xs uppercase tracking-widest transition-colors">
+                            ${icons.home} Hub
+                        </button>
+                        <div id="category-badge" class="px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest ${currentDeck.lightColor} ${currentDeck.textColor}">
+                            ${currentCard.category}
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h2 class="text-2xl font-black text-slate-800">${currentDeck.title}</h2>
+                        <div class="w-full bg-slate-200 rounded-full h-2">
+                            <div id="progress-bar" class="${currentDeck.color} h-2 rounded-full transition-all duration-300" style="width: ${((state.currentIndex + 1) / state.cards.length) * 100}%"></div>
+                        </div>
+                    </div>
+
+                    <div class="relative h-80 w-full cursor-pointer perspective-1000 group" onclick="toggleFlip()">
+                        <div id="card-inner" class="relative w-full h-full transition-transform duration-500 transform-style-3d">
+                            <!-- Front -->
+                            <div class="absolute inset-0 backface-hidden bg-white rounded-[2rem] shadow-xl border border-slate-100 flex flex-col items-center justify-center p-10 text-center">
+                                <div id="card-front-content"></div>
+                                <div class="absolute bottom-8 flex items-center gap-2 text-slate-300 text-sm font-bold animate-pulse">
+                                    ${icons.arrowRL} Reveal Answer
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 backface-hidden ${currentDeck.color} rounded-[2rem] shadow-xl flex flex-col items-center justify-center p-10 text-center rotate-y-180">
+                                <div id="card-back-content"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="handlePrev()" class="flex-1 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-slate-600 hover:bg-slate-50 transition-all shadow-sm">
+                            Previous
+                        </button>
+                        <button onclick="handleNext()" class="flex-1 py-4 ${currentDeck.color} rounded-2xl font-bold text-white hover:opacity-90 transition-all shadow-lg">
+                            Next
+                        </button>
+                    </div>
+
+                    <div class="flex justify-center items-center gap-6 text-slate-400 font-bold text-xs uppercase tracking-widest">
+                        <span id="card-counter">Card ${state.currentIndex + 1} of ${state.cards.length}</span>
+                        <button onclick="handleShuffle()" class="flex items-center gap-1 hover:text-slate-900">${icons.shuffle} Shuffle</button>
+                    </div>
+                </div>
+            `;
+            updateCardUI(); // Populate the initial card
+        };
+
+        const updateCardUI = () => {
+            const currentCard = state.cards[state.currentIndex];
+            document.getElementById('card-front-content').innerHTML = renderCardContent(currentCard.question, false);
+            document.getElementById('card-back-content').innerHTML = renderCardContent(currentCard.answer, true);
+            document.getElementById('category-badge').innerText = currentCard.category;
+            document.getElementById('progress-bar').style.width = `${((state.currentIndex + 1) / state.cards.length) * 100}%`;
+            document.getElementById('card-counter').innerText = `Card ${state.currentIndex + 1} of ${state.cards.length}`;
+            
+            // Ensure card is flipped to front
+            state.isFlipped = false;
+            document.getElementById('card-inner').classList.remove('rotate-y-180');
+        };
+
+        // --- GLOBAL ACTIONS ---
+        window.selectDeck = (id) => {
+            state.currentDeckId = id;
+            state.cards = decks[id].generate();
+            state.currentIndex = 0;
+            state.isFlipped = false;
+            state.view = 'quiz';
+            renderQuiz();
+        };
+
+        window.goToMenu = () => {
+            state.view = 'menu';
+            renderMenu();
+        };
+
+        window.toggleFlip = () => {
+            state.isFlipped = !state.isFlipped;
+            const cardInner = document.getElementById('card-inner');
+            if (state.isFlipped) {
+                cardInner.classList.add('rotate-y-180');
+            } else {
+                cardInner.classList.remove('rotate-y-180');
+            }
+        };
+
+        window.handleNext = () => {
+            state.isFlipped = false;
+            document.getElementById('card-inner').classList.remove('rotate-y-180');
+            setTimeout(() => {
+                state.currentIndex = (state.currentIndex + 1) % state.cards.length;
+                updateCardUI();
+            }, 150); // Wait for un-flip animation
+        };
+
+        window.handlePrev = () => {
+            state.isFlipped = false;
+            document.getElementById('card-inner').classList.remove('rotate-y-180');
+            setTimeout(() => {
+                state.currentIndex = (state.currentIndex - 1 + state.cards.length) % state.cards.length;
+                updateCardUI();
+            }, 150);
+        };
+
+        window.handleShuffle = () => {
+            state.isFlipped = false;
+            document.getElementById('card-inner').classList.remove('rotate-y-180');
+            setTimeout(() => {
+                state.cards = state.cards.sort(() => Math.random() - 0.5);
+                state.currentIndex = 0;
+                updateCardUI();
+            }, 150);
+        };
+
+        // Initialize App
+        renderMenu();
+    </script>
+</body>
+</html>
