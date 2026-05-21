@@ -6,7 +6,7 @@
     <title>Grade 5 Math Flashcards Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for kids-friendly academic icons -->
+    <!-- FontAwesome for kids-friendly steampunk academic icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,9 +16,12 @@
     <style>
         body {
             font-family: 'Quicksand', sans-serif;
-            background-color: #f0fdf4; /* Soft green */
+            background-color: #0f171e; /* Deep cold-iron navy */
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
         }
-        h1, h2, h3, h4 {
+        h1, h2, h3, h4, span.font-heading {
             font-family: 'Fredoka', sans-serif;
         }
         /* 3D Card Flip Mechanics */
@@ -34,29 +37,93 @@
         .rotate-y-180 {
             transform: rotateY(180deg);
         }
+
+        /* Nautilus Steampunk Styling Plates */
+        .patina-plate {
+            background: linear-gradient(135deg, #1e3535 0%, #0d1e1e 100%); /* Weathered oxidized copper */
+            box-shadow: 0 8px 0 0 #0f2a2a, inset 0 0 20px rgba(45, 212, 191, 0.15);
+            border: 4px solid #14b8a6; /* Glowing teal borders */
+        }
+        .steel-plate {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); /* Cold steel/iron slab */
+            box-shadow: 0 8px 0 0 #020617, inset 0 0 15px rgba(255,255,255,0.05);
+            border: 4px solid #475569;
+        }
+        .brass-plate {
+            background: linear-gradient(135deg, #efe3d0 0%, #dfcca7 100%); /* Warm engraved brass */
+            box-shadow: 0 8px 0 0 #8a653d, inset 0 0 15px rgba(74, 55, 40, 0.2);
+            border: 4px solid #b38552;
+        }
+        .ivory-plate {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); /* Lighter high-contrast verdigris slate */
+            box-shadow: 0 8px 0 0 #0f766e, inset 0 0 15px rgba(13, 148, 136, 0.1);
+            border: 4px solid #0d9488;
+        }
+
+        /* Rivet accents */
+        .rivet {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #0d9488;
+            border-radius: 50%;
+            box-shadow: inset 1px 1px 1px rgba(255,255,255,0.4), 1px 1px 2px rgba(0,0,0,0.9);
+        }
+        .rivet-brass {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #8a653d;
+            border-radius: 50%;
+            box-shadow: inset 1px 1px 1px rgba(255,255,255,0.4), 1px 1px 2px rgba(0,0,0,0.9);
+        }
+        .rivet-steel {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #475569;
+            border-radius: 50%;
+            box-shadow: inset 1px 1px 1px rgba(255,255,255,0.4), 1px 1px 2px rgba(0,0,0,0.9);
+        }
+
+        /* Continuous mechanical gear spins */
+        @keyframes spin-clockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes spin-counter {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .animate-spin-cw {
+            animation: spin-clockwise 25s linear infinite;
+        }
+        .animate-spin-ccw {
+            animation: spin-counter 18s linear infinite;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between text-gray-800">
+<body class="min-h-screen flex flex-col justify-between text-[#ccfbf1] relative">
 
     <!-- Navbar -->
-    <nav class="bg-white border-b-4 border-blue-200 sticky top-0 z-40 shadow-sm">
+    <nav class="bg-[#0b131a] border-b-8 border-[#14b8a6] sticky top-0 z-40 shadow-xl">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="bg-blue-500 text-white p-2.5 rounded-2xl shadow-md group-hover:rotate-6 transition-transform">
-                    <i class="fa-solid fa-house-chimney text-lg"></i>
+                <div class="bg-gradient-to-tr from-[#0d9488] to-[#14b8a6] text-[#0b131a] p-2.5 rounded-2xl shadow-inner border-2 border-[#2dd4bf] group-hover:rotate-[360deg] transition-transform duration-1000">
+                    <i class="fa-solid fa-gears text-2xl"></i>
                 </div>
                 <div>
-                    <span class="text-xl font-bold text-blue-600 block leading-tight">Grade5Tests</span>
-                    <span class="text-xs text-gray-400 font-semibold tracking-wider uppercase">← Return to Portal</span>
+                    <span class="text-xl font-bold bg-gradient-to-r from-[#2dd4bf] to-[#0d9488] bg-clip-text text-transparent block leading-tight">Grade5Tests</span>
+                    <span class="text-xs text-[#0d9488] font-semibold tracking-wider uppercase">⚙️ CLOCKWORK APPARATUS ⚙️</span>
                 </div>
             </a>
             
-            <div class="flex items-center gap-3">
-                <span class="bg-amber-100 text-amber-800 text-xs md:text-sm font-bold px-3 py-1.5 rounded-full inline-flex items-center gap-1">
-                    <i class="fa-solid fa-fire text-orange-500 animate-pulse"></i>
+            <div class="flex items-center gap-4">
+                <span class="bg-[#115e59] text-[#2dd4bf] text-xs md:text-sm font-black px-4 py-2 rounded-2xl inline-flex items-center gap-2 border border-[#2dd4bf]/30 shadow-inner">
+                    <i class="fa-solid fa-fire text-orange-400 animate-pulse"></i>
                     Streak: <span id="streakCount">0</span>
                 </span>
-                <button id="resetStatsBtn" class="text-gray-400 hover:text-red-500 text-xs font-semibold transition-colors">
+                <button id="resetStatsBtn" class="text-slate-400 hover:text-red-400 text-xs font-bold uppercase tracking-wider transition-colors">
                     Reset Score
                 </button>
             </div>
@@ -64,106 +131,129 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
+    <main class="max-w-4xl mx-auto px-4 py-12 flex-grow w-full z-10 relative">
+        
+        <!-- Interactive background visual gears -->
+        <div class="absolute top-10 left-10 text-6xl opacity-10 animate-spin-cw text-[#2dd4bf] pointer-events-none"><i class="fa-solid fa-gear"></i></div>
+        <div class="absolute bottom-10 right-12 text-7xl opacity-5 animate-spin-ccw text-[#475569] pointer-events-none"><i class="fa-solid fa-gears"></i></div>
+
         <!-- Title & Summer Note -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-black text-blue-600 mb-2">☀️ Grade 5 Fractions Practice Hub</h1>
-            <p class="text-gray-600 text-sm md:text-base max-w-xl mx-auto">
-                Review your multiplication and division rules daily! Keep fractions between 1 and 12 on all numerators and denominators.
+        <div class="text-center mb-10">
+            <span class="bg-[#115e59] text-[#2dd4bf] px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase inline-block mb-3 border border-[#2dd4bf]/40 shadow-inner">
+                ☀️ BOILER ROOM PRE-ALGEBRA ☀️
+            </span>
+            <h1 class="text-4xl md:text-5xl font-black text-white mb-2 uppercase tracking-wide">Fractions Practice Hub</h1>
+            <p class="text-[#86efac] text-sm md:text-base max-w-xl mx-auto font-medium">
+                Keep your internal mathematical gearbox oiled! Review your operational calculations daily.
             </p>
         </div>
 
         <!-- Section Navigation Tabs -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8 bg-white/60 p-2 rounded-3xl border border-gray-200">
-            <button onclick="setCategory('multiply-fractions')" id="btn-multiply-fractions" class="tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all bg-blue-500 text-white shadow-md">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8 bg-[#0b131a]/80 p-2.5 rounded-3xl border border-[#475569]/50 shadow-inner">
+            <button onclick="setCategory('multiply-fractions')" id="btn-multiply-fractions" class="tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-slate-400 hover:bg-slate-800">
                 <i class="fa-solid fa-times mr-1"></i> Frac × Frac
             </button>
-            <button onclick="setCategory('multiply-mixed')" id="btn-multiply-mixed" class="tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-gray-600 hover:bg-gray-100">
+            <button onclick="setCategory('multiply-mixed')" id="btn-multiply-mixed" class="tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-slate-400 hover:bg-slate-800">
                 <i class="fa-solid fa-star-half-stroke mr-1"></i> Whole × Frac
             </button>
-            <button onclick="setCategory('divide-fractions')" id="btn-divide-fractions" class="tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-gray-600 hover:bg-gray-100">
+            <button onclick="setCategory('divide-fractions')" id="btn-divide-fractions" class="tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-slate-400 hover:bg-slate-800">
                 <i class="fa-solid fa-divide mr-1"></i> Fraction ÷
             </button>
-            <button onclick="setCategory('mixed-all')" id="btn-mixed-all" class="tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-gray-600 hover:bg-gray-100">
+            <button onclick="setCategory('mixed-all')" id="btn-mixed-all" class="tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-slate-400 hover:bg-slate-800">
                 <i class="fa-solid fa-shuffle mr-1"></i> Mixed Review
             </button>
         </div>
 
         <!-- Top Tool Belt -->
-        <div class="flex justify-between items-center mb-4">
-            <div class="text-sm font-bold text-gray-500 flex items-center gap-2">
-                <span class="inline-block w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-                <span>Active Category: <span id="activeCategoryName" class="text-blue-600">Fraction Multiplication</span></span>
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+            <div class="text-sm font-bold text-slate-400 flex items-center gap-2">
+                <span class="inline-block w-3 h-3 bg-[#14b8a6] rounded-full animate-ping"></span>
+                <span>Active Vault: <span id="activeCategoryName" class="text-[#2dd4bf] uppercase font-black">Fraction Multiplication</span></span>
             </div>
             
-            <!-- Sketchpad Button -->
-            <button onclick="toggleScratchpad()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-md transition-all flex items-center gap-1.5">
+            <!-- Sketchpad Trigger Button -->
+            <button onclick="toggleScratchpad()" class="bg-[#115e59] hover:bg-[#0f766e] text-[#2dd4bf] hover:text-white px-5 py-2.5 rounded-2xl text-xs font-black shadow-md border border-[#2dd4bf]/40 transition-all flex items-center gap-1.5">
                 <i class="fa-solid fa-signature"></i>
                 <span id="scratchpadBtnText">Show Scratchpad</span>
             </button>
         </div>
 
         <!-- Scratchpad Area (Hidden by Default) -->
-        <div id="scratchpadContainer" class="hidden bg-white border-4 border-emerald-200 rounded-3xl p-4 mb-6 shadow-lg transition-all">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-sm font-bold text-emerald-700 flex items-center gap-1.5">
-                    <i class="fa-solid fa-pencil"></i> Draw Your Visual Models Here
+        <div id="scratchpadContainer" class="hidden steel-plate rounded-3xl p-5 mb-8 relative">
+            <div class="rivet-steel top-3 left-3"></div>
+            <div class="rivet-steel top-3 right-3"></div>
+            <div class="rivet-steel bottom-3 left-3"></div>
+            <div class="rivet-steel bottom-3 right-3"></div>
+
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-sm font-bold text-slate-300 flex items-center gap-1.5">
+                    <i class="fa-solid fa-pencil text-[#2dd4bf]"></i> Draft Mechanical Visual Models
                 </span>
-                <div class="flex items-center gap-2">
-                    <button onclick="clearScratchpad()" class="bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1 rounded-xl text-xs font-bold transition-all">
-                        Clear Pad
+                <div class="flex items-center gap-3">
+                    <button onclick="clearScratchpad()" class="bg-[#334155] hover:bg-[#475569] text-xs text-slate-200 font-bold px-4 py-1.5 rounded-xl border border-slate-600 transition-all">
+                        Wipe Slate
                     </button>
-                    <button onclick="toggleScratchpad()" class="text-gray-400 hover:text-gray-600">
-                        <i class="fa-solid fa-circle-xmark"></i>
+                    <button onclick="toggleScratchpad()" class="text-slate-400 hover:text-red-400">
+                        <i class="fa-solid fa-circle-xmark text-lg"></i>
                     </button>
                 </div>
             </div>
             <!-- Canvas Object -->
-            <canvas id="scratchpadCanvas" class="w-full h-44 bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl cursor-crosshair"></canvas>
+            <canvas id="scratchpadCanvas" class="w-full h-44 bg-[#020617] border-2 border-dashed border-[#334155] rounded-2xl cursor-crosshair touch-none"></canvas>
         </div>
 
-        <!-- Interactive Flashcard Container -->
-        <div class="perspective-1000 w-full max-w-lg mx-auto aspect-[4/3] mb-8 cursor-pointer" onclick="flipCard()">
+        <!-- Interactive Flashcard Container (Adjusted Height to Prevent explanations from overflowing) -->
+        <div class="perspective-1000 w-full max-w-lg mx-auto h-[400px] sm:h-[440px] mb-8 cursor-pointer" onclick="flipCard()">
             <div id="flashcard" class="preserve-3d relative w-full h-full duration-500 ease-in-out">
                 
-                <!-- Front Side of Flashcard -->
-                <div class="backface-hidden absolute w-full h-full bg-white border-4 border-blue-400 rounded-3xl p-8 flex flex-col justify-between shadow-xl">
-                    <div class="flex justify-between items-center text-gray-400 text-xs font-semibold tracking-wider">
-                        <span>QUESTION CARD</span>
-                        <span id="cardBadge" class="bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full text-[10px] font-bold">MULTIPLICATION</span>
+                <!-- Front Side of Flashcard (Warm Steampunk Brass Plate with Responsive Padding) -->
+                <div class="backface-hidden absolute w-full h-full brass-plate rounded-[2.5rem] p-6 sm:p-8 flex flex-col justify-between text-[#4a3728]">
+                    <div class="rivet-brass top-3 left-3"></div>
+                    <div class="rivet-brass top-3 right-3"></div>
+                    <div class="rivet-brass bottom-3 left-3"></div>
+                    <div class="rivet-brass bottom-3 right-3"></div>
+
+                    <div class="flex justify-between items-center text-[#8a653d] text-xs font-bold tracking-wider">
+                        <span>QUESTION COIL</span>
+                        <span id="cardBadge" class="bg-[#dfcca7] text-[#4a3728] px-2.5 py-0.5 rounded-full text-[10px] font-black border border-[#8a653d]/50">MULTIPLICATION</span>
                     </div>
                     
-                    <!-- Math Problem Display -->
+                    <!-- Math Problem Display (Engraved Charcoal Ink) -->
                     <div class="flex-grow flex items-center justify-center">
-                        <div id="mathProblemDisplay" class="flex items-center gap-6 md:gap-8 text-3xl md:text-5xl font-black text-gray-800">
+                        <div id="mathProblemDisplay" class="flex items-center gap-6 md:gap-8 text-4xl md:text-6xl font-black text-[#2a1f18]">
                             <!-- Populated Dynamically -->
                         </div>
                     </div>
                     
-                    <div class="text-center text-sm text-gray-400 font-bold animate-pulse">
-                        <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Click Card to Flip & Reveal Answer
+                    <div class="text-center text-xs text-[#8a653d] font-black animate-pulse uppercase tracking-widest">
+                        <i class="fa-solid fa-rotate mr-1.5"></i> Pull Valve to Reveal Answer
                     </div>
                 </div>
 
-                <!-- Back Side of Flashcard -->
-                <div class="backface-hidden rotate-y-180 absolute w-full h-full bg-blue-50 border-4 border-emerald-400 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-xl">
-                    <div class="flex justify-between items-center text-gray-400 text-xs font-semibold tracking-wider">
-                        <span>STEP-BY-STEP EXPLANATION</span>
-                        <span class="bg-emerald-100 text-emerald-600 px-2 py-0.5 rounded-full text-[10px] font-bold">SOLVER</span>
+                <!-- Back Side of Flashcard (Polished Light Ivory Plate with Optimized Layout to Prevent Clipping) -->
+                <div class="backface-hidden rotate-y-180 absolute w-full h-full ivory-plate rounded-[2.5rem] p-6 sm:p-8 flex flex-col justify-between text-[#134e4a]">
+                    <div class="rivet top-3 left-3"></div>
+                    <div class="rivet top-3 right-3"></div>
+                    <div class="rivet bottom-3 left-3"></div>
+                    <div class="rivet bottom-3 right-3"></div>
+
+                    <div class="flex justify-between items-center text-[#0f766e] text-xs font-bold tracking-wider">
+                        <span>CYLINDER SOLUTION</span>
+                        <span class="bg-[#ccfbf1] text-[#0d9488] px-2.5 py-0.5 rounded-full text-[10px] font-black border border-[#14b8a6]/40">SOLVER</span>
                     </div>
 
                     <!-- Explanatory Solution Area -->
-                    <div class="flex-grow flex flex-col justify-center items-center text-center px-2 py-4">
-                        <div id="finalAnswerDisplay" class="text-3xl md:text-4xl font-extrabold text-emerald-600 mb-4 flex items-center justify-center gap-3">
+                    <div class="flex-grow flex flex-col justify-center items-center text-center px-2 py-2">
+                        <div id="finalAnswerDisplay" class="text-3xl sm:text-4xl md:text-5xl font-black text-[#115e59] mb-2 sm:mb-4 flex items-center justify-center gap-3">
                             <!-- Correct simplified final answer -->
                         </div>
-                        <div id="stepByStepDisplay" class="text-xs md:text-sm text-gray-600 space-y-2 max-w-sm">
+                        <div id="stepByStepDisplay" class="text-xs sm:text-sm text-slate-700 font-semibold space-y-1.5 sm:space-y-2 max-w-sm">
                             <!-- Visual equations -->
                         </div>
                     </div>
 
-                    <div class="text-center text-sm text-gray-400 font-bold">
-                        <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Click anywhere to flip back
+                    <div class="text-center text-xs text-[#0f766e] font-black uppercase tracking-widest">
+                        <i class="fa-solid fa-rotate-left mr-1.5"></i> Click anywhere to flip back
                     </div>
                 </div>
 
@@ -172,44 +262,50 @@
 
         <!-- Practice Rating Controls -->
         <div class="max-w-md mx-auto grid grid-cols-2 gap-4">
-            <button onclick="ratePractice(false)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
-                <i class="fa-solid fa-circle-xmark text-lg"></i>
-                <span>Need Practice</span>
+            <button onclick="ratePractice(false)" class="bg-[#7f1d1d] hover:bg-[#991b1b] text-red-100 border-2 border-red-500 font-black py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 active:translate-y-1">
+                <i class="fa-solid fa-circle-xmark text-lg text-red-400"></i>
+                <span>WANTS PRESSURE</span>
             </button>
-            <button onclick="ratePractice(true)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
-                <i class="fa-solid fa-circle-check text-lg"></i>
-                <span>Mastered!</span>
+            <button onclick="ratePractice(true)" class="bg-[#115e59] hover:bg-[#0f766e] text-teal-100 border-2 border-[#14b8a6] font-black py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 active:translate-y-1">
+                <i class="fa-solid fa-circle-check text-lg text-[#2dd4bf]"></i>
+                <span>CALIBRATED!</span>
             </button>
         </div>
 
         <!-- Dashboard Stats -->
-        <div class="max-w-lg mx-auto mt-12 bg-white rounded-3xl p-6 shadow-sm border border-gray-100 grid grid-cols-3 gap-4 text-center">
+        <div class="max-w-lg mx-auto mt-12 steel-plate rounded-3xl p-6 shadow-2xl grid grid-cols-3 gap-4 text-center relative">
+            <div class="rivet-steel top-2 left-2"></div>
+            <div class="rivet-steel top-2 right-2"></div>
+            <div class="rivet-steel bottom-2 left-2"></div>
+            <div class="rivet-steel bottom-2 right-2"></div>
+
             <div>
-                <span class="block text-2xl font-black text-gray-800" id="totalStudied">0</span>
-                <span class="text-xs text-gray-400 font-bold uppercase tracking-wide">Total Studied</span>
+                <span class="block text-3xl font-black text-white" id="totalStudied">0</span>
+                <span class="text-[10px] text-slate-400 font-black uppercase tracking-wider">Total Studied</span>
             </div>
             <div>
-                <span class="block text-2xl font-black text-emerald-500" id="masteryRate">0%</span>
-                <span class="text-xs text-gray-400 font-bold uppercase tracking-wide">Mastery</span>
+                <span class="block text-3xl font-black text-[#2dd4bf]" id="masteryRate">0%</span>
+                <span class="text-[10px] text-slate-400 font-black uppercase tracking-wider">Mastery Code</span>
             </div>
             <div>
-                <span class="block text-2xl font-black text-blue-500" id="sessionCount">0</span>
-                <span class="text-xs text-gray-400 font-bold uppercase tracking-wide">Session Wins</span>
+                <span class="block text-3xl font-black text-amber-400" id="sessionCount">0</span>
+                <span class="text-[10px] text-slate-400 font-black uppercase tracking-wider">Turbine Wins</span>
             </div>
         </div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t-4 border-blue-200 py-8 px-4 mt-12">
+    <footer class="bg-[#0b131a] border-t-8 border-[#14b8a6] py-8 px-4 mt-12 text-[#2dd4bf]">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             <div>
-                <p class="font-bold text-gray-700">Grade5Tests Hub</p>
-                <p class="text-xs text-gray-400 mt-1">Helping students reach new heights in mathematical confidence.</p>
+                <p class="font-bold">Grade 5 Clockwork Portal • Memory Coils Apparatus ⚙️</p>
+                <p class="text-xs text-[#0d9488] mt-1">Calibrating young minds for outstanding mathematical performance.</p>
             </div>
-            <div class="flex flex-wrap justify-center gap-6 text-sm font-semibold text-gray-500">
-                <a href="index.html" class="hover:text-blue-500 transition-colors">Main Hub Portal</a>
-                <a href="https://github.com/Keeks-Tests/Grade5Tests" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors">GitHub Repository</a>
+            <div class="flex flex-wrap justify-center gap-6 text-sm font-semibold text-[#0d9488]">
+                <a href="index.html" class="hover:text-white transition-colors">Portal Main</a>
+                <a href="g5fph.html" class="hover:text-white transition-colors">Fraction Engine</a>
+                <a href="https://github.com/Keeks-Tests/Grade5tests" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub Repository</a>
             </div>
         </div>
     </footer>
@@ -253,7 +349,7 @@
         function makeFractionHTML(numerator, denominator) {
             return `
                 <div class="inline-flex flex-col items-center justify-center leading-none px-1">
-                    <span class="border-b-4 border-gray-800 pb-1 text-center font-bold min-w-[1.2rem]">${numerator}</span>
+                    <span class="border-b-4 border-[#2a1f18] pb-1 text-center font-bold min-w-[1.2rem]">${numerator}</span>
                     <span class="pt-1 text-center font-bold min-w-[1.2rem]">${denominator}</span>
                 </div>
             `;
@@ -272,10 +368,10 @@
                 const remainder = simpNum % simpDen;
                 
                 if (remainder === 0) {
-                    mixedHTML = `<span class="font-extrabold text-emerald-600">${whole}</span>`;
+                    mixedHTML = `<span class="font-extrabold text-[#0f766e]">${whole}</span>`;
                 } else {
                     mixedHTML = `
-                        <div class="flex items-center gap-1.5 font-extrabold text-emerald-600">
+                        <div class="flex items-center gap-1.5 font-extrabold text-[#0f766e]">
                             <span>${whole}</span>
                             ${makeFractionHTML(remainder, simpDen)}
                         </div>
@@ -311,30 +407,30 @@
                 return {
                     category: 'Fraction Multiplication',
                     badge: 'MULTIPLICATION',
-                    badgeColor: 'bg-blue-100 text-blue-600 border-blue-200',
+                    badgeColor: 'bg-[#efe3d0] text-[#8a653d] border-[#b38552]/40',
                     problemHTML: `
                         ${makeFractionHTML(n1, d1)}
-                        <span class="text-gray-400 text-2xl md:text-3xl font-bold">×</span>
+                        <span class="text-[#8a653d] text-2xl md:text-3xl font-bold">×</span>
                         ${makeFractionHTML(n2, d2)}
                     `,
                     answerHTML: simplified.mixedHTML,
                     stepsHTML: `
-                        <div class="font-bold text-gray-700 text-sm md:text-base mb-2">
-                            Step 1: Multiply the tops and multiply the bottoms!
+                        <div class="font-bold text-slate-700 text-xs sm:text-sm mb-1">
+                            Step 1: Multiply numerators and denominators straight across!
                         </div>
-                        <div class="flex items-center justify-center gap-1.5 text-base md:text-lg mb-4">
+                        <div class="flex items-center justify-center gap-1.5 text-sm sm:text-base mb-2">
                             <div class="flex flex-col items-center">
-                                <span class="border-b-2 border-gray-600 pb-0.5">${n1} × ${n2}</span>
+                                <span class="border-b-2 border-slate-600 pb-0.5">${n1} × ${n2}</span>
                                 <span class="pt-0.5">${d1} × ${d2}</span>
                             </div>
                             <span>=</span>
                             ${makeFractionHTML(finalNum, finalDen)}
                         </div>
                         ${simplified.wasReduced ? `
-                            <div class="font-bold text-gray-700 text-xs md:text-sm">
-                                Step 2: Simplify by dividing both by ${gcd(finalNum, finalDen)}:
+                            <div class="font-bold text-slate-700 text-[11px] sm:text-xs">
+                                Step 2: Simplify by dividing both parts by ${gcd(finalNum, finalDen)}:
                             </div>
-                            <div class="flex items-center justify-center gap-1.5 text-base mt-1">
+                            <div class="flex items-center justify-center gap-1.5 text-sm sm:text-base mt-1">
                                 ${makeFractionHTML(finalNum, finalDen)} <span>=</span> ${makeFractionHTML(simplified.num, simplified.den)}
                                 ${simplified.isImproper && (finalNum % finalDen !== 0) ? `<span>=</span> ${simplified.mixedHTML}` : ''}
                             </div>
@@ -354,26 +450,26 @@
                 const simplified = simplifyFraction(finalNum, finalDen);
 
                 const problemHTML = wholeIsFirst 
-                    ? `<span>${whole}</span> <span class="text-gray-400 text-2xl font-bold">×</span> ${makeFractionHTML(n1, d1)}`
-                    : `${makeFractionHTML(n1, d1)} <span class="text-gray-400 text-2xl font-bold">×</span> <span>${whole}</span>`;
+                    ? `<span>${whole}</span> <span class="text-[#8a653d] text-2xl font-bold">×</span> ${makeFractionHTML(n1, d1)}`
+                    : `${makeFractionHTML(n1, d1)} <span class="text-[#8a653d] text-2xl font-bold">×</span> <span>${whole}</span>`;
 
                 return {
                     category: 'Fraction & Whole Multiplication',
                     badge: 'WHOLE × FRACTION',
-                    badgeColor: 'bg-indigo-100 text-indigo-600 border-indigo-200',
+                    badgeColor: 'bg-[#efe3d0] text-[#8a653d] border-[#b38552]/40',
                     problemHTML: problemHTML,
                     answerHTML: simplified.mixedHTML,
                     stepsHTML: `
-                        <div class="font-bold text-gray-700 text-sm md:text-base mb-2">
+                        <div class="font-bold text-slate-700 text-xs sm:text-sm mb-1">
                             Step 1: Write the whole number as a fraction over 1!
                         </div>
-                        <div class="flex items-center justify-center gap-1.5 text-base mb-3">
+                        <div class="flex items-center justify-center gap-1.5 text-sm mb-2">
                             <span>${whole}</span> <span>=</span> ${makeFractionHTML(whole, 1)}
                         </div>
-                        <div class="font-bold text-gray-700 text-sm md:text-base mb-2">
-                            Step 2: Multiply!
+                        <div class="font-bold text-slate-700 text-xs sm:text-sm mb-1">
+                            Step 2: Multiply straight across!
                         </div>
-                        <div class="flex items-center justify-center gap-1.5 text-base mb-4">
+                        <div class="flex items-center justify-center gap-1.5 text-sm mb-2">
                             ${wholeIsFirst ? makeFractionHTML(whole, 1) : makeFractionHTML(n1, d1)}
                             <span>×</span>
                             ${wholeIsFirst ? makeFractionHTML(n1, d1) : makeFractionHTML(whole, 1)}
@@ -381,10 +477,10 @@
                             ${makeFractionHTML(finalNum, finalDen)}
                         </div>
                         ${simplified.wasReduced ? `
-                            <div class="font-bold text-gray-700 text-xs md:text-sm">
-                                Step 3: Simplify and change to mixed number if needed:
+                            <div class="font-bold text-slate-700 text-[11px] sm:text-xs">
+                                Step 3: Simplify/convert to a mixed number if needed:
                             </div>
-                            <div class="flex items-center justify-center gap-1.5 text-base mt-1">
+                            <div class="flex items-center justify-center gap-1.5 text-sm mt-1">
                                 ${makeFractionHTML(finalNum, finalDen)} <span>=</span> ${simplified.mixedHTML}
                             </div>
                         ` : ''}
@@ -393,10 +489,6 @@
             },
 
             'divide-fractions': () => {
-                // We divide fractions. Choose random division archetype:
-                // 1: Fraction ÷ Whole
-                // 2: Whole ÷ Fraction
-                // 3: Fraction ÷ Fraction
                 const mode = rand(1, 3);
                 const n1 = rand(1, 12);
                 const d1 = rand(1, 12);
@@ -410,81 +502,78 @@
                 let stepsHTML = "";
 
                 if (mode === 1) {
-                    // Fraction ÷ Whole
                     finalNum = n1;
                     finalDen = d1 * whole;
                     problemHTML = `
                         ${makeFractionHTML(n1, d1)}
-                        <span class="text-gray-400 text-2xl font-bold">÷</span>
+                        <span class="text-[#8a653d] text-2xl font-bold">÷</span>
                         <span>${whole}</span>
                     `;
                     const simplified = simplifyFraction(finalNum, finalDen);
                     stepsHTML = `
-                        <div class="font-bold text-gray-700 text-xs md:text-sm mb-2 text-left">
-                            🚀 <strong>Keep-Change-Flip:</strong>
+                        <div class="font-bold text-slate-700 text-xs mb-1 text-left">
+                            🚀 <strong>Keep-Change-Flip Mechanics:</strong>
                         </div>
-                        <ul class="text-left text-xs md:text-sm text-gray-600 list-disc list-inside space-y-1 mb-4">
+                        <ul class="text-left text-[11px] sm:text-xs text-slate-600 list-disc list-inside space-y-0.5 mb-2">
                             <li><strong>Keep</strong> the first fraction: <span class="bg-blue-50 px-1 py-0.5 rounded font-bold">${n1}/${d1}</span></li>
                             <li><strong>Change</strong> ÷ to multiplication (×)</li>
                             <li><strong>Flip</strong> the whole number ${whole} (${whole}/1) to <span class="bg-amber-50 px-1 py-0.5 rounded font-bold">1/${whole}</span></li>
                         </ul>
-                        <div class="flex items-center justify-center gap-2 text-base md:text-lg mb-3">
+                        <div class="flex items-center justify-center gap-1.5 text-sm sm:text-base mb-2">
                             ${makeFractionHTML(n1, d1)} <span>×</span> ${makeFractionHTML(1, whole)} <span>=</span> ${makeFractionHTML(finalNum, finalDen)}
                         </div>
                         ${simplified.wasReduced ? `
-                            <div class="font-bold text-gray-700 text-xs">Simplified:</div>
-                            <div class="flex items-center justify-center gap-1.5 text-base mt-1">${makeFractionHTML(finalNum, finalDen)} = ${simplified.mixedHTML}</div>
+                            <div class="font-bold text-slate-700 text-[11px] sm:text-xs text-center">Simplified:</div>
+                            <div class="flex items-center justify-center gap-1.5 text-sm mt-0.5">${makeFractionHTML(finalNum, finalDen)} = ${simplified.mixedHTML}</div>
                         ` : ''}
                     `;
                 } else if (mode === 2) {
-                    // Whole ÷ Fraction
                     finalNum = whole * d1;
                     finalDen = n1;
                     problemHTML = `
                         <span>${whole}</span>
-                        <span class="text-gray-400 text-2xl font-bold">÷</span>
+                        <span class="text-[#8a653d] text-2xl font-bold">÷</span>
                         ${makeFractionHTML(n1, d1)}
                     `;
                     const simplified = simplifyFraction(finalNum, finalDen);
                     stepsHTML = `
-                        <div class="font-bold text-gray-700 text-xs md:text-sm mb-2 text-left">
-                            🚀 <strong>Keep-Change-Flip:</strong>
+                        <div class="font-bold text-slate-700 text-xs mb-1 text-left">
+                            🚀 <strong>Keep-Change-Flip Mechanics:</strong>
                         </div>
-                        <ul class="text-left text-xs md:text-sm text-gray-600 list-disc list-inside space-y-1 mb-4">
+                        <ul class="text-left text-[11px] sm:text-xs text-slate-600 list-disc list-inside space-y-0.5 mb-2">
                             <li><strong>Keep</strong> the whole number ${whole} (${whole}/1)</li>
                             <li><strong>Change</strong> ÷ to multiplication (×)</li>
                             <li><strong>Flip</strong> the fraction ${n1}/${d1} to <span class="bg-amber-50 px-1 py-0.5 rounded font-bold">${d1}/${n1}</span></li>
                         </ul>
-                        <div class="flex items-center justify-center gap-2 text-base md:text-lg mb-3">
+                        <div class="flex items-center justify-center gap-1.5 text-sm sm:text-base mb-2">
                             ${makeFractionHTML(whole, 1)} <span>×</span> ${makeFractionHTML(d1, n1)} <span>=</span> ${makeFractionHTML(finalNum, finalDen)}
                         </div>
-                        <div class="font-bold text-gray-700 text-xs">Simplified Result:</div>
-                        <div class="flex items-center justify-center gap-1.5 text-base mt-1">${makeFractionHTML(finalNum, finalDen)} = ${simplified.mixedHTML}</div>
+                        <div class="font-bold text-slate-700 text-[11px] sm:text-xs text-center">Simplified Result:</div>
+                        <div class="flex items-center justify-center gap-1.5 text-sm mt-0.5">${makeFractionHTML(finalNum, finalDen)} = ${simplified.mixedHTML}</div>
                     `;
                 } else {
-                    // Fraction ÷ Fraction
                     finalNum = n1 * d2;
                     finalDen = d1 * n2;
                     problemHTML = `
                         ${makeFractionHTML(n1, d1)}
-                        <span class="text-gray-400 text-2xl font-bold">÷</span>
+                        <span class="text-[#8a653d] text-2xl font-bold">÷</span>
                         ${makeFractionHTML(n2, d2)}
                     `;
                     const simplified = simplifyFraction(finalNum, finalDen);
                     stepsHTML = `
-                        <div class="font-bold text-gray-700 text-xs md:text-sm mb-2 text-left">
-                            🚀 <strong>Keep-Change-Flip:</strong>
+                        <div class="font-bold text-slate-700 text-xs mb-1 text-left">
+                            🚀 <strong>Keep-Change-Flip Mechanics:</strong>
                         </div>
-                        <ul class="text-left text-xs md:text-sm text-gray-600 list-disc list-inside space-y-1 mb-4">
+                        <ul class="text-left text-[11px] sm:text-xs text-slate-600 list-disc list-inside space-y-0.5 mb-2">
                             <li><strong>Keep</strong> the first fraction: <span class="bg-blue-50 px-1 py-0.5 rounded font-bold">${n1}/${d1}</span></li>
                             <li><strong>Change</strong> ÷ to multiplication (×)</li>
                             <li><strong>Flip</strong> the second fraction ${n2}/${d2} to <span class="bg-amber-50 px-1 py-0.5 rounded font-bold">${d2}/${n2}</span></li>
                         </ul>
-                        <div class="flex items-center justify-center gap-2 text-base md:text-lg mb-3">
+                        <div class="flex items-center justify-center gap-1.5 text-sm sm:text-base mb-2">
                             ${makeFractionHTML(n1, d1)} <span>×</span> ${makeFractionHTML(d2, n2)} <span>=</span> ${makeFractionHTML(finalNum, finalDen)}
                         </div>
-                        <div class="font-bold text-gray-700 text-xs">Simplified Result:</div>
-                        <div class="flex items-center justify-center gap-1.5 text-base mt-1">${makeFractionHTML(finalNum, finalDen)} = ${simplified.mixedHTML}</div>
+                        <div class="font-bold text-slate-700 text-[11px] sm:text-xs text-center">Simplified Result:</div>
+                        <div class="flex items-center justify-center gap-1.5 text-sm mt-0.5">${makeFractionHTML(finalNum, finalDen)} = ${simplified.mixedHTML}</div>
                     `;
                 }
 
@@ -493,7 +582,7 @@
                 return {
                     category: 'Fraction Division',
                     badge: 'DIVISION',
-                    badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+                    badgeColor: 'bg-[#efe3d0] text-[#8a653d] border-[#b38552]/40',
                     problemHTML: problemHTML,
                     answerHTML: finalResult.mixedHTML,
                     stepsHTML: stepsHTML
@@ -505,13 +594,13 @@
         function setCategory(categoryKey) {
             currentCategory = categoryKey;
             
-            // Adjust Active Tab Visual Classes
+            // Adjust Active Tab Visual Classes to match Steampunk aesthetics
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.className = "tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-gray-600 hover:bg-gray-100";
+                btn.className = "tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all text-slate-400 hover:bg-slate-800";
             });
             const activeBtn = document.getElementById(`btn-${categoryKey}`);
             if (activeBtn) {
-                activeBtn.className = "tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all bg-blue-500 text-white shadow-md";
+                activeBtn.className = "tab-btn px-4 py-2.5 rounded-2xl font-bold text-sm transition-all bg-[#0d9488] text-white border-2 border-[#2dd4bf] shadow-lg shadow-[#0d9488]/20";
             }
 
             // Generate first card
@@ -612,8 +701,8 @@
             // Retain styling parameters
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
-            ctx.strokeStyle = '#059669'; // Emerald solid green color
-            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#2dd4bf'; // Glowing neon-teal stroke color
+            ctx.lineWidth = 4;
         }
 
         function toggleScratchpad() {
@@ -697,7 +786,7 @@
         // --- 5. INITIALIZATION ---
         window.onload = () => {
             updateStatsDOM();
-            generateCard();
+            setCategory('multiply-fractions'); // Sets active styling on first tab load
         };
     </script>
 </body>
