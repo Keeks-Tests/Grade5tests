@@ -204,7 +204,8 @@
 
         <!-- Interactive Flashcard Container (Adjusted Height to Prevent explanations from overflowing) -->
         <div class="perspective-1000 w-full max-w-lg mx-auto h-[400px] sm:h-[440px] mb-8 cursor-pointer" onclick="flipCard()">
-            <div id="flashcard" class="preserve-3d relative w-full h-full duration-500 ease-in-out">
+            <!-- Adjusted transition duration from duration-500 to duration-300 for snappier flips -->
+            <div id="flashcard" class="preserve-3d relative w-full h-full duration-300 ease-in-out">
                 
                 <!-- Front Side of Flashcard (Warm Steampunk Brass Plate with Responsive Padding) -->
                 <div class="backface-hidden absolute w-full h-full brass-plate rounded-[2.5rem] p-6 sm:p-8 flex flex-col justify-between text-[#4a3728]">
@@ -608,34 +609,43 @@
         }
 
         function generateCard() {
-            // Unflip physical UI
             const cardEl = document.getElementById('flashcard');
-            cardEl.classList.remove('rotate-y-180');
-            isFlipped = false;
+            
+            // Inner DOM updater function to keep content synced with transition state
+            const updateDOM = () => {
+                // Resolve random category if mixed review is selected
+                let key = currentCategory;
+                if (key === 'mixed-all') {
+                    const keys = ['multiply-fractions', 'multiply-mixed', 'divide-fractions'];
+                    key = keys[rand(0, 2)];
+                }
 
-            // Resolve random category if mixed review is selected
-            let key = currentCategory;
-            if (key === 'mixed-all') {
-                const keys = ['multiply-fractions', 'multiply-mixed', 'divide-fractions'];
-                key = keys[rand(0, 2)];
+                // Execute corresponding math generator
+                currentCard = Generators[key]();
+
+                // Populate DOM Elements
+                document.getElementById('activeCategoryName').textContent = currentCard.category;
+                
+                const badgeEl = document.getElementById('cardBadge');
+                badgeEl.textContent = currentCard.badge;
+                badgeEl.className = `px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase border ${currentCard.badgeColor}`;
+
+                document.getElementById('mathProblemDisplay').innerHTML = currentCard.problemHTML;
+                document.getElementById('finalAnswerDisplay').innerHTML = `<span>Answer:</span> ${currentCard.answerHTML}`;
+                document.getElementById('stepByStepDisplay').innerHTML = currentCard.stepsHTML;
+                
+                // Clear scratchpad between cards to maintain workflow
+                clearScratchpad();
+            };
+
+            // If the card is flipped, unflip it first and wait 300ms for rotation to hide the back side
+            if (isFlipped) {
+                cardEl.classList.remove('rotate-y-180');
+                isFlipped = false;
+                setTimeout(updateDOM, 300); // 300ms delay perfectly aligns with .duration-300 transition
+            } else {
+                updateDOM();
             }
-
-            // Execute corresponding math generator
-            currentCard = Generators[key]();
-
-            // Populate DOM Elements
-            document.getElementById('activeCategoryName').textContent = currentCard.category;
-            
-            const badgeEl = document.getElementById('cardBadge');
-            badgeEl.textContent = currentCard.badge;
-            badgeEl.className = `px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase border ${currentCard.badgeColor}`;
-
-            document.getElementById('mathProblemDisplay').innerHTML = currentCard.problemHTML;
-            document.getElementById('finalAnswerDisplay').innerHTML = `<span>Answer:</span> ${currentCard.answerHTML}`;
-            document.getElementById('stepByStepDisplay').innerHTML = currentCard.stepsHTML;
-            
-            // Clear scratchpad between cards to maintain workflow
-            clearScratchpad();
         }
 
         function flipCard() {
