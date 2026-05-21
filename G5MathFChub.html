@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Educational Flashcard Hub</title>
+    <title>Grade 5 Clockwork Flashcards</title>
     
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,18 +15,81 @@
     <!-- Babel to translate JSX into browser-readable JavaScript -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome for fun mechanical icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts for Steampunk Character -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 
     <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #2b221a; /* Dark iron/wood backdrop */
+            background-image: radial-gradient(#3d2f24 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, button, span.font-heading {
+            font-family: 'Fredoka', sans-serif;
+        }
+        /* Perspective and Flip Animations */
         .perspective-1000 { perspective: 1000px; }
         .transform-style-3d { transform-style: preserve-3d; }
         .backface-hidden { backface-visibility: hidden; }
         .rotate-y-180 { transform: rotateY(180deg); }
+
+        /* Floating/Spinning Gears */
+        @keyframes float-gear {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(45deg); }
+        }
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px) rotate(360deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-float-gear {
+            animation: float-gear 8s ease-in-out infinite;
+        }
+        .animate-float-reverse {
+            animation: float-reverse 10s ease-in-out infinite;
+        }
+        .animate-spin-slow {
+            animation: spin-slow 20s linear infinite;
+        }
+
+        /* Riveted Steampunk Metal Plate Styling */
+        .steampunk-plate {
+            background: linear-gradient(135deg, #efe3d0 0%, #dfcca7 100%); /* Aged parchment / brass plate */
+            box-shadow: 0 10px 0 0 #8a653d, inset 0 0 15px rgba(74, 55, 40, 0.2);
+            border: 4px solid #8a653d;
+        }
+        .steampunk-plate-dark {
+            background: linear-gradient(135deg, #3a2c22 0%, #1e1713 100%);
+            box-shadow: 0 10px 0 0 #18120f, inset 0 0 15px rgba(0, 0, 0, 0.6);
+            border: 4px solid #8a653d;
+        }
+        .card-mechanical:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px -5px rgba(212, 175, 55, 0.25), 0 8px 0 0 #b38552;
+        }
+        .rivet {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #8a653d;
+            border-radius: 50%;
+            box-shadow: inset 1px 1px 1px rgba(255,255,255,0.3), 1px 1px 2px rgba(0,0,0,0.8);
+        }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-900">
-    
+<body class="min-h-screen text-[#4a3728] relative pb-12 flex flex-col justify-between">
+
     <div id="root"></div>
 
     <script type="text/babel">
@@ -44,10 +107,10 @@
           const decks = useMemo(() => ({
             multiplication: {
               title: "Multiplication 6-15",
-              icon: <i className="fa-solid fa-calculator text-indigo-500 text-3xl"></i>,
-              color: "bg-indigo-600",
-              lightColor: "bg-indigo-50",
-              textColor: "text-indigo-600",
+              icon: <i className="fa-solid fa-calculator text-[#ffdf7a] text-3xl"></i>,
+              color: "bg-[#8a653d]",
+              lightColor: "bg-[#f4ede4]",
+              textColor: "text-[#8a653d]",
               description: "Master times tables for 6 through 15.",
               generate: () => {
                 const d = [];
@@ -61,10 +124,10 @@
             },
             division: {
               title: "Division 6-15",
-              icon: <i className="fa-solid fa-divide text-rose-500 text-3xl"></i>,
-              color: "bg-rose-600",
-              lightColor: "bg-rose-50",
-              textColor: "text-rose-600",
+              icon: <i className="fa-solid fa-divide text-[#ffdf7a] text-3xl"></i>,
+              color: "bg-[#8a653d]",
+              lightColor: "bg-[#f4ede4]",
+              textColor: "text-[#8a653d]",
               description: "Practice division facts related to 6-15.",
               generate: () => {
                 const d = [];
@@ -79,10 +142,10 @@
             },
             fractions: {
               title: "Simplifying Fractions",
-              icon: <i className="fa-solid fa-layer-group text-amber-500 text-3xl"></i>,
-              color: "bg-amber-600",
-              lightColor: "bg-amber-50",
-              textColor: "text-amber-600",
+              icon: <i className="fa-solid fa-gears text-[#ffdf7a] text-3xl"></i>,
+              color: "bg-[#8a653d]",
+              lightColor: "bg-[#f4ede4]",
+              textColor: "text-[#8a653d]",
               description: "Reduce fractions to their simplest form.",
               generate: () => {
                 const d = [];
@@ -103,19 +166,13 @@
             },
             geometry: {
               title: "5th Grade Geometry",
-              icon: <i className="fa-solid fa-shapes text-emerald-500 text-3xl"></i>,
-              color: "bg-emerald-600",
-              lightColor: "bg-emerald-50",
-              textColor: "text-emerald-600",
+              icon: <i className="fa-solid fa-shapes text-[#ffdf7a] text-3xl"></i>,
+              color: "bg-[#8a653d]",
+              lightColor: "bg-[#f4ede4]",
+              textColor: "text-[#8a653d]",
               description: "Classify shapes and recall angle rules.",
               generate: () => {
                 return [
-                  { answer: "A = l × w", question: "Area of a Rectangle\n(where l = length, w = width)", category: "Measurement" },
-                  { answer: "P = 2l + 2w\nOR\nP = 2(l + w)", question: "Perimeter of a Rectangle\n(where l = length, w = width)", category: "Measurement" },
-                  { answer: "A = s × s", question: "Area of a Square\n(where s = side)", category: "Measurement" },
-                  { answer: "P = 4s", question: "Perimeter of a Square\n(where s = side)", category: "Measurement" },
-                  { answer: "A = ½(b × h)", question: "Area of a Triangle\n(where b = base, h = height)", category: "Measurement" },
-                  { answer: "P = side 1 + side 2 + side 3", question: "Perimeter of a Triangle", category: "Measurement" },
                   { answer: "Triangle", question: "A polygon with 3 sides.", category: "Polygons" },
                   { answer: "Quadrilateral", question: "A polygon with 4 sides.", category: "Polygons" },
                   { answer: "Pentagon", question: "A polygon with 5 sides.", category: "Polygons" },
@@ -182,111 +239,187 @@
             if (content === undefined || content === null) return null;
             if (typeof content === 'object') {
               return (
-                <div className="flex flex-col items-center">
-                  <span className={`${isBack ? 'text-white' : 'text-slate-800'} text-5xl font-bold`}>{content.n}</span>
-                  <div className={`w-20 h-1.5 ${isBack ? 'bg-white' : 'bg-slate-800'} my-2 rounded-full`}></div>
-                  <span className={`${isBack ? 'text-white' : 'text-slate-800'} text-5xl font-bold`}>{content.d}</span>
+                <div className="flex flex-col items-center select-none">
+                  <span className={`${isBack ? 'text-[#ffdf7a]' : 'text-[#4a3728]'} text-6xl font-black`}>{content.n}</span>
+                  <div className={`w-24 h-2 ${isBack ? 'bg-[#ffdf7a]' : 'bg-[#4a3728]'} my-3 rounded-full`}></div>
+                  <span className={`${isBack ? 'text-[#ffdf7a]' : 'text-[#4a3728]'} text-6xl font-black`}>{content.d}</span>
                 </div>
               );
             }
             return (
-              <p className={`${isBack ? 'text-white text-4xl' : 'text-slate-800 text-2xl'} font-bold leading-tight whitespace-pre-line`}>
+              <p className={`${isBack ? 'text-[#ffdf7a] text-4xl font-black' : 'text-[#4a3728] text-3xl font-extrabold'} leading-tight whitespace-pre-line select-none`}>
                 {content}
               </p>
             );
           };
 
           return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-6">
+            <div className="min-h-screen flex flex-col justify-between py-8 px-4 relative z-10 w-full">
+              
+              {/* Mechanical Decorative Gears Backdrop (Static Layout) */}
+              <div className="absolute top-12 left-12 text-6xl opacity-10 animate-float-gear text-[#ffdf7a] pointer-events-none"><i class="fa-solid fa-gear"></i></div>
+              <div className="absolute bottom-16 right-16 text-7xl opacity-10 animate-float-reverse text-[#b38552] pointer-events-none"><i class="fa-solid fa-gears"></i></div>
+              
               {view === 'menu' ? (
-                <div className="max-w-4xl w-full space-y-12 animate-in fade-in duration-500">
-                  <div className="text-center space-y-4">
-                    <h1 className="text-5xl font-black tracking-tighter text-slate-900 uppercase">Flashcard Hub</h1>
-                    <p className="text-slate-500 text-lg font-medium">Select a category to begin</p>
+                <div className="max-w-5xl w-full mx-auto space-y-12 animate-in fade-in duration-500">
+                  
+                  {/* Steampunk Header and Portal Return Link */}
+                  <div className="flex flex-col items-center space-y-4 text-center">
+                    <div className="flex items-center gap-4">
+                      <a href="index.html" className="bg-[#1e1713] hover:bg-[#3a2c22] text-[#ffdf7a] hover:text-white px-5 py-2.5 rounded-2xl text-sm font-bold inline-flex items-center gap-2 border-2 border-[#8a653d] transition-all shadow-md">
+                        <i className="fa-solid fa-gauge"></i>
+                        <span>Return to Math Portal</span>
+                      </a>
+                    </div>
+                    
+                    <span className="bg-[#8a653d] text-[#ffdf7a] px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase inline-block border-2 border-[#ffdf7a] shadow-md">
+                        ⚙️ COGNITIVE BOOST ENGINE ⚙️
+                    </span>
+                    <h1 className="text-5xl md:text-6xl font-black tracking-wide text-white uppercase drop-shadow-md">
+                      Memory Coils Hub
+                    </h1>
+                    <p className="text-[#f4ede4] text-lg font-medium opacity-90 max-w-xl">
+                      Select a computational vault to initialize your cognitive gears!
+                    </p>
                   </div>
                   
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {/* Grid Layout of Steam Decks */}
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {Object.entries(decks).map(([id, deck]) => (
                       <button 
                         key={id}
                         onClick={() => selectDeck(id)}
-                        className="group relative bg-white p-6 rounded-3xl shadow-lg border border-slate-100 flex flex-col items-center text-center space-y-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+                        className="group relative steampunk-plate p-6 rounded-3xl flex flex-col items-center text-center space-y-4 card-mechanical transition-all duration-300"
                       >
-                        <div className={`p-3 rounded-2xl ${deck.lightColor} group-hover:scale-110 transition-transform`}>
+                        {/* Rivets at corners */}
+                        <div className="rivet top-2 left-2"></div>
+                        <div className="rivet top-2 right-2"></div>
+                        <div className="rivet bottom-2 left-2"></div>
+                        <div className="rivet bottom-2 right-2"></div>
+
+                        <div className="p-4 rounded-2xl bg-[#2a1f18] border-2 border-[#ffdf7a]/40 shadow-inner group-hover:rotate-[360deg] transition-transform duration-1000">
                           {deck.icon}
                         </div>
                         <div>
-                          <h3 className="text-lg font-bold text-slate-800 leading-tight">{deck.title}</h3>
-                          <p className="text-xs text-slate-400 mt-1">{deck.description}</p>
+                          <h3 className="text-xl font-black text-[#2a1f18] leading-tight uppercase">{deck.title}</h3>
+                          <p className="text-xs text-[#5c4432] mt-2 font-bold leading-relaxed">{deck.description}</p>
                         </div>
                       </button>
                     ))}
                   </div>
                 </div>
               ) : (
-                <div className="max-w-md w-full space-y-8 animate-in slide-in-from-bottom-4 duration-500">
-                  {!currentCard ? (
-                     <div className="text-center p-8 bg-white rounded-3xl shadow-xl">
-                       <p className="text-slate-500 mb-4">Preparing your deck...</p>
-                       <button onClick={() => setView('menu')} className="text-indigo-600 font-bold uppercase text-xs tracking-widest">Return to Hub</button>
-                     </div>
-                  ) : (
-                    <>
-                      <div className="flex items-center justify-between">
-                        <button onClick={() => setView('menu')} className="flex items-center gap-2 text-slate-400 hover:text-slate-900 font-bold text-xs uppercase tracking-widest transition-colors">
-                          <i className="fa-solid fa-house"></i> Hub
-                        </button>
-                        <div className={`px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest ${currentDeck.lightColor} ${currentDeck.textColor}`}>
-                          {currentCard?.category}
-                        </div>
-                      </div>
+                <div className="max-w-xl w-full mx-auto space-y-8 animate-in slide-in-from-bottom-4 duration-500">
+                  
+                  {/* Quiz View Navigation Header */}
+                  <div className="flex items-center justify-between">
+                    <button onClick={() => setView('menu')} className="bg-[#1e1713] hover:bg-[#3a2c22] border-2 border-[#8a653d] text-[#ffdf7a] px-4 py-2 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all shadow-md inline-flex items-center gap-2">
+                      <i className="fa-solid fa-gears"></i> Coils Menu
+                    </button>
+                    <a href="index.html" className="bg-[#3a2c22] hover:bg-[#4a3728] border-2 border-[#8a653d] text-white hover:text-[#ffdf7a] px-4 py-2 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all shadow-md inline-flex items-center gap-2">
+                      <i className="fa-solid fa-house"></i> Portal Main
+                    </a>
+                  </div>
 
-                      <div className="space-y-2">
-                        <h2 className="text-2xl font-black text-slate-800">{currentDeck.title}</h2>
-                        <div className="w-full bg-slate-200 rounded-full h-2">
-                          <div 
-                            className={`${currentDeck.color} h-2 rounded-full transition-all duration-300`} 
-                            style={{ width: `${((currentIndex + 1) / cards.length) * 100}%` }}
-                          ></div>
-                        </div>
-                      </div>
-
+                  {/* Deck Title Header */}
+                  <div className="steampunk-plate-dark text-white p-6 rounded-3xl relative">
+                    <div className="rivet top-2 left-2"></div>
+                    <div className="rivet top-2 right-2"></div>
+                    <div className="rivet bottom-2 left-2"></div>
+                    <div className="rivet bottom-2 right-2"></div>
+                    
+                    <div className="flex justify-between items-center mb-3">
+                      <h2 className="text-2xl font-black uppercase text-[#ffdf7a] tracking-wide">{currentDeck.title}</h2>
+                      <span className="bg-[#8a653d] border border-[#ffdf7a] text-[#ffdf7a] px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-wider">
+                        {currentCard?.category}
+                      </span>
+                    </div>
+                    
+                    {/* Steam Pressure Progress Bar */}
+                    <div className="w-full bg-[#18120f] rounded-full h-3 p-0.5 border border-[#8a653d]">
                       <div 
-                        className="relative h-80 w-full cursor-pointer perspective-1000 group"
-                        onClick={handleFlip}
-                      >
-                        <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
-                          <div className="absolute inset-0 backface-hidden bg-white rounded-[2rem] shadow-xl border border-slate-100 flex flex-col items-center justify-center p-10 text-center">
-                            {renderCardContent(currentCard.question)}
-                            <div className="absolute bottom-8 flex items-center gap-2 text-slate-300 text-sm font-bold animate-pulse">
-                              <i className="fa-solid fa-arrow-right-arrow-left"></i> Reveal Answer
-                            </div>
-                          </div>
-                          <div className={`absolute inset-0 backface-hidden ${currentDeck.color} rounded-[2rem] shadow-xl flex flex-col items-center justify-center p-10 text-center rotate-y-180`}>
-                            {renderCardContent(currentCard.answer, true)}
-                          </div>
+                        className="bg-gradient-to-r from-[#8a653d] to-[#ffdf7a] h-1.5 rounded-full transition-all duration-300" 
+                        style={{ width: `${((currentIndex + 1) / cards.length) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  {/* Immersive 3D Flippable Card Plate */}
+                  <div 
+                    className="relative h-96 w-full cursor-pointer perspective-1000 group"
+                    onClick={handleFlip}
+                  >
+                    <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+                      
+                      {/* Front Side: Aged Parchment */}
+                      <div className="absolute inset-0 backface-hidden steampunk-plate rounded-[2.5rem] flex flex-col items-center justify-center p-12 text-center relative">
+                        <div className="rivet top-3 left-3"></div>
+                        <div className="rivet top-3 right-3"></div>
+                        <div className="rivet bottom-3 left-3"></div>
+                        <div className="rivet bottom-3 right-3"></div>
+                        
+                        {renderCardContent(currentCard.question)}
+                        
+                        <div className="absolute bottom-8 flex items-center gap-2 text-[#8a653d] text-xs font-black uppercase tracking-widest animate-pulse">
+                          <i className="fa-solid fa-rotate"></i> Pull Lever / Tap to Flip
                         </div>
                       </div>
 
-                      <div className="flex gap-4">
-                        <button onClick={handlePrev} className="flex-1 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-slate-600 hover:bg-slate-50 transition-all shadow-sm">
-                          Previous
-                        </button>
-                        <button onClick={handleNext} className={`flex-1 py-4 ${currentDeck.color} rounded-2xl font-bold text-white hover:opacity-90 transition-all shadow-lg`}>
-                          Next
-                        </button>
+                      {/* Back Side: Dark Plated Iron */}
+                      <div className="absolute inset-0 backface-hidden steampunk-plate-dark rounded-[2.5rem] flex flex-col items-center justify-center p-12 text-center rotate-y-180 relative">
+                        <div className="rivet top-3 left-3"></div>
+                        <div className="rivet top-3 right-3"></div>
+                        <div className="rivet bottom-3 left-3"></div>
+                        <div className="rivet bottom-3 right-3"></div>
+                        
+                        {renderCardContent(currentCard.answer, true)}
+                        
+                        <div className="absolute bottom-8 flex items-center gap-2 text-[#ffdf7a]/50 text-xs font-black uppercase tracking-widest">
+                          <i className="fa-solid fa-rotate-left"></i> Reversed Plate
+                        </div>
                       </div>
+                    </div>
+                  </div>
 
-                      <div className="flex justify-center items-center gap-6 text-slate-400 font-bold text-xs uppercase tracking-widest">
-                        <span>Card {currentIndex + 1} of {cards.length}</span>
-                        <button onClick={handleShuffle} className="flex items-center gap-1 hover:text-slate-900">
-                           <i className="fa-solid fa-shuffle"></i> Shuffle
-                        </button>
-                      </div>
-                    </>
-                  )}
+                  {/* Steam Valve Control Buttons */}
+                  <div className="flex gap-4">
+                    <button 
+                      onClick={handlePrev} 
+                      className="flex-1 py-4 bg-[#3a2c22] hover:bg-[#4a3728] border-2 border-[#8a653d] rounded-2xl font-black text-white hover:text-[#ffdf7a] transition-all shadow-md active:translate-y-1"
+                    >
+                      <i className="fa-solid fa-backward-step mr-2"></i> PREVIOUS
+                    </button>
+                    <button 
+                      onClick={handleNext} 
+                      className="flex-1 py-4 bg-[#8a653d] hover:bg-[#a67b4c] text-white hover:text-[#ffdf7a] border-2 border-[#ffdf7a]/50 rounded-2xl font-black transition-all shadow-lg active:translate-y-1 border-b-4 border-[#4a351f] hover:border-b-2"
+                    >
+                      NEXT <i class="fa-solid fa-forward-step ml-2"></i>
+                    </button>
+                  </div>
+
+                  {/* Coil Counters and Shuffler */}
+                  <div className="flex justify-between items-center px-2 text-[#ffdf7a] font-black text-xs uppercase tracking-widest">
+                    <span>Cylinder {currentIndex + 1} of {cards.length}</span>
+                    <button 
+                      onClick={handleShuffle} 
+                      className="flex items-center gap-2 hover:text-white transition-colors bg-[#1e1713] px-3 py-1.5 rounded-xl border border-[#8a653d]"
+                    >
+                       <i className="fa-solid fa-shuffle animate-spin-slow"></i> Reshuffle Coil
+                    </button>
+                  </div>
                 </div>
               )}
+              
+              {/* Steampunk Footer */}
+              <footer className="text-center pt-12 text-[#b38552] text-xs font-bold uppercase tracking-wider relative z-20">
+                <p>Grade 5 Clockwork Portal • Memory Coils Apparatus ⚙️</p>
+                <div className="mt-2 flex justify-center gap-4">
+                  <a href="index.html" className="hover:text-[#ffdf7a] transition-all">Portal Main</a>
+                  <span>•</span>
+                  <a href="g5fph.html" className="hover:text-[#ffdf7a] transition-all">Fraction Engine</a>
+                </div>
+              </footer>
+
             </div>
           );
         };
