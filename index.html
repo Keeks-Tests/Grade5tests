@@ -22,7 +22,14 @@
             font-family: 'Fredoka', sans-serif;
         }
         .card-glow:hover {
-            box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.2), 0 8px 10px -6px rgba(34, 197, 94, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.2), 0 8px 10px -6px rgba(59, 130, 246, 0.2);
+        }
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 15s linear infinite;
         }
     </style>
 </head>
@@ -58,158 +65,58 @@
             <span class="bg-yellow-300 text-yellow-800 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase inline-block mb-3 shadow-sm">Welcome Students & Teachers!</span>
             <h1 class="text-4xl md:text-5xl font-black mb-4 drop-shadow-md">Grade 5 Interactive Math Hub</h1>
             <p class="text-lg md:text-xl font-medium opacity-90 max-w-2xl mx-auto">
-                Practice, learn, and test your skills with our custom-designed flashcards and interactive math quizzes!
+                Practice, learn, and master your math skills with our custom-designed learning aids!
             </p>
         </div>
     </header>
 
     <!-- Main Content Area -->
-    <main class="max-w-6xl mx-auto px-4 py-12 flex-grow w-full">
+    <main class="max-w-4xl mx-auto px-4 py-12 flex-grow w-full">
         
-        <!-- Search & Info Bar -->
-        <div class="bg-white rounded-3xl p-6 shadow-md mb-10 border-2 border-green-100 flex flex-col md:flex-row gap-4 justify-between items-center">
-            <div class="relative w-full md:w-96">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="searchInput" placeholder="Search tests or flashcards..." class="w-full pl-11 pr-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-green-400 transition-colors text-sm font-medium" />
+        <!-- Summer Practice Recommendation Banner -->
+        <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-4 border-amber-200 rounded-3xl p-6 md:p-8 shadow-md mb-10 flex flex-col md:flex-row items-center gap-6">
+            <div class="bg-amber-100 text-amber-500 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-inner flex-shrink-0">
+                <i class="fa-solid fa-sun animate-spin-slow"></i>
             </div>
-            
-            <div class="flex items-center gap-3 text-sm text-gray-500 font-semibold bg-green-50 px-4 py-2 rounded-2xl border border-green-100 w-full md:w-auto justify-center">
-                <i class="fa-solid fa-star text-yellow-500 animate-pulse"></i>
-                <span>Select an activity below to get started!</span>
+            <div>
+                <h2 class="text-2xl font-bold text-amber-800 mb-2">☀️ Keep Your Brain Active This Summer!</h2>
+                <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+                    To keep your math skills sharp, we highly recommend practicing these flashcards throughout the summer break! Just <strong>10 minutes a day</strong> of consistent practice helps prevent the summer learning slide, keeping you confident and fully prepared to conquer Grade 6 math in the fall.
+                </p>
             </div>
         </div>
 
-        <!-- Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="cardsGrid">
-            
+        <!-- Featured Activity Card Section -->
+        <div class="flex justify-center">
             <!-- Card 1: Math Flashcards Hub (UNPROTECTED) -->
-            <div class="card bg-white rounded-3xl overflow-hidden border-2 border-blue-100 shadow-md card-glow hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-title="g5 math flashcards hub index">
+            <div class="card bg-white rounded-3xl overflow-hidden border-2 border-blue-100 shadow-md card-glow hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between max-w-xl w-full">
                 <div>
-                    <div class="bg-blue-500 text-white p-6 relative">
+                    <div class="bg-blue-500 text-white p-8 relative">
                         <div class="absolute right-6 top-6 bg-blue-400/30 w-12 h-12 rounded-full flex items-center justify-center">
                             <i class="fa-solid fa-layer-group text-2xl"></i>
                         </div>
                         <span class="bg-blue-600/50 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Main Hub</span>
-                        <h3 class="text-2xl font-bold mt-4 leading-snug">G5 Math Flashcards</h3>
+                        <h3 class="text-3xl font-bold mt-4 leading-snug">G5 Math Flashcards</h3>
                     </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                            Your master dashboard for Grade 5 Math Flashcards. Review operations, decimals, fractions, and core key terms all in one place.
+                    <div class="p-8">
+                        <p class="text-gray-600 text-base leading-relaxed mb-6">
+                            Your master dashboard for Grade 5 Math Flashcards. Review operations, decimals, fractions, geometry vocabulary, and core terms in an interactive, easy-to-use study format.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-bold">Comprehensive</span>
-                            <span class="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-bold">Study Tool</span>
+                        <div class="flex flex-wrap gap-2 mb-2">
+                            <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-bold">Comprehensive Study Tool</span>
+                            <span class="bg-amber-50 text-amber-600 px-3 py-1 rounded-full text-sm font-bold">Summer Recommended</span>
                         </div>
                     </div>
                 </div>
-                <div class="p-6 pt-0">
-                    <a href="G5MathFChub.html" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-2xl transition-colors shadow-md">
+                <div class="p-8 pt-0">
+                    <a href="G5MathFChub.html" class="block text-center bg-blue-500 hover:bg-blue-600 text-white text-lg font-bold py-4 px-6 rounded-2xl transition-all shadow-md shadow-blue-100 hover:shadow-lg hover:shadow-blue-200">
                         <i class="fa-solid fa-circle-play mr-2"></i>Open Flashcard Hub
                     </a>
                 </div>
             </div>
-
-            <!-- Card 2: Chapter 11 Test (PIN PROTECTED) -->
-            <div class="card bg-white rounded-3xl overflow-hidden border-2 border-emerald-100 shadow-md card-glow hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-title="math05 ch11 chapter 11 test exam geometry volume">
-                <div>
-                    <div class="bg-emerald-500 text-white p-6 relative">
-                        <div class="absolute right-6 top-6 bg-emerald-400/30 w-12 h-12 rounded-full flex items-center justify-center">
-                            <i class="fa-solid fa-lock text-2xl text-emerald-200"></i>
-                        </div>
-                        <span class="bg-amber-400 text-amber-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5">
-                            <i class="fa-solid fa-lock text-[10px]"></i> Protected
-                        </span>
-                        <h3 class="text-2xl font-bold mt-4 leading-snug">Chapter 11 Test</h3>
-                    </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                            Take the interactive assessment for Chapter 11. Test your comprehension on geometry concepts, 3D shapes, calculations, and volume measurement.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold">Interactive Test</span>
-                            <span class="bg-green-50 text-green-600 px-3 py-1 rounded-full text-xs font-bold">Chapter 11</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6 pt-0">
-                    <a href="math05-ch11-Test.html" data-protected="true" class="protected-link block text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-2xl transition-colors shadow-md">
-                        <i class="fa-solid fa-file-signature mr-2"></i>Start Chapter Test
-                    </a>
-                </div>
-            </div>
-
-            <!-- Card 3: Chapter 11 Quiz 3 (PIN PROTECTED) -->
-            <div class="card bg-white rounded-3xl overflow-hidden border-2 border-amber-100 shadow-md card-glow hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-title="mathch11paquiz3 chapter 11 practice quiz 3 math">
-                <div>
-                    <div class="bg-amber-500 text-white p-6 relative">
-                        <div class="absolute right-6 top-6 bg-amber-400/30 w-12 h-12 rounded-full flex items-center justify-center">
-                            <i class="fa-solid fa-lock text-2xl text-amber-200"></i>
-                        </div>
-                        <span class="bg-amber-600 text-amber-100 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5">
-                            <i class="fa-solid fa-lock text-[10px]"></i> Protected
-                        </span>
-                        <h3 class="text-2xl font-bold mt-4 leading-snug">Ch 11 Practice Quiz 3</h3>
-                    </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                            A focused practice quiz designed for Chapter 11. Great for a quick review before exam day to pinpoint your strengths and items to study.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-amber-50 text-amber-600 px-3 py-1 rounded-full text-xs font-bold">Quick Quiz</span>
-                            <span class="bg-orange-50 text-orange-600 px-3 py-1 rounded-full text-xs font-bold">Practice Mode</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6 pt-0">
-                    <a href="mathch11paquiz3.html" data-protected="true" class="protected-link block text-center bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-2xl transition-colors shadow-md">
-                        <i class="fa-solid fa-circle-check mr-2"></i>Start Practice Quiz
-                    </a>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- No Results Found Banner -->
-        <div id="noResults" class="hidden bg-white border-2 border-dashed border-gray-300 rounded-3xl p-12 text-center max-w-lg mx-auto mt-6">
-            <i class="fa-solid fa-face-frown text-gray-400 text-5xl mb-4"></i>
-            <h4 class="text-xl font-bold text-gray-700 mb-2">No activities found</h4>
-            <p class="text-gray-500 text-sm">Try looking for another term or keyword (e.g., "quiz", "test", "math").</p>
         </div>
 
     </main>
-
-    <!-- Custom PIN Entry Modal Backdrop -->
-    <div id="pinModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden transition-all duration-300">
-        <!-- Modal Card -->
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border-4 border-green-200 transform scale-95 transition-all duration-300">
-            <div class="text-center">
-                <!-- Lock Icon -->
-                <div class="bg-amber-100 text-amber-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-                    <i class="fa-solid fa-lock text-2xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-800 mb-1">Enter Teacher PIN</h3>
-                <p class="text-sm text-gray-500 mb-6">Ask your teacher or parent to unlock this activity.</p>
-                
-                <!-- PIN Input Box -->
-                <input type="password" id="pinInput" placeholder="••••" maxlength="8" class="w-full text-center tracking-[1em] text-3xl font-black py-3 px-4 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-green-400 mb-2 transition-all">
-                
-                <!-- Incorrect Error Display -->
-                <p id="pinError" class="text-red-500 text-sm font-bold mb-4 invisible flex items-center justify-center gap-1.5">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Incorrect PIN. Try again!
-                </p>
-                
-                <!-- Form Action Buttons -->
-                <div class="grid grid-cols-2 gap-3">
-                    <button id="cancelBtn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-2xl transition-colors focus:ring-2 focus:ring-gray-300">
-                        Cancel
-                    </button>
-                    <button id="submitBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-2xl transition-colors shadow-md shadow-green-100 focus:ring-2 focus:ring-green-400">
-                        Unlock
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="bg-white border-t-4 border-green-200 py-8 px-4 mt-12">
@@ -219,95 +126,11 @@
                 <p class="text-xs text-gray-400 mt-1">Helping students reach new heights in mathematical confidence.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-6 text-sm font-semibold text-gray-500">
-                <a href="G5MathFChub.html" class="hover:text-green-500 transition-colors">Math Hub</a>
-                <a href="math05-ch11-Test.html" class="hover:text-green-500 transition-colors">Ch 11 Test</a>
-                <a href="mathch11paquiz3.html" class="hover:text-green-500 transition-colors">Quiz 3</a>
+                <a href="G5MathFChub.html" class="hover:text-green-500 transition-colors">Math Flashcard Hub</a>
+                <a href="https://github.com/Keeks-Tests/Grade5Tests" target="_blank" rel="noopener noreferrer" class="hover:text-green-500 transition-colors">GitHub Repository</a>
             </div>
         </div>
     </footer>
 
-    <!-- Vanilla Javascript logic for Live Search Filter and Protection Modal -->
-    <script>
-        // --- 1. CONFIGURATION ---
-        // Change this string to whatever PIN or password you want!
-        const REQUIRED_PIN = "1234";
-
-        // --- 2. SEARCH ELEMENT LOGIC ---
-        const searchInput = document.getElementById('searchInput');
-        const cards = document.querySelectorAll('.card');
-        const noResults = document.getElementById('noResults');
-
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            let visibleCardsCount = 0;
-
-            cards.forEach(card => {
-                const searchTags = card.getAttribute('data-title').toLowerCase();
-                if (searchTags.includes(query)) {
-                    card.classList.remove('hidden');
-                    visibleCardsCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-
-            if (visibleCardsCount === 0) {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
-            }
-        });
-
-        // --- 3. PIN PROTECTION MODAL LOGIC ---
-        const pinModal = document.getElementById('pinModal');
-        const pinInput = document.getElementById('pinInput');
-        const pinError = document.getElementById('pinError');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const submitBtn = document.getElementById('submitBtn');
-        const protectedLinks = document.querySelectorAll('[data-protected="true"]');
-        
-        let pendingUrl = ""; // Tracks where the user wanted to go
-
-        // Attach click listeners to all links containing the data-protected attribute
-        protectedLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault(); // Block immediate navigation
-                pendingUrl = link.getAttribute('href'); // Capture target page URL
-                
-                // Reset inputs and show the security dialogue
-                pinInput.value = "";
-                pinError.classList.add('invisible');
-                pinModal.classList.remove('hidden');
-                setTimeout(() => pinInput.focus(), 50); // Set auto-focus
-            });
-        });
-
-        // Closes modal if cancel is chosen
-        cancelBtn.addEventListener('click', () => {
-            pinModal.classList.add('hidden');
-            pendingUrl = "";
-        });
-
-        // Checks submitted credentials
-        function verifyPasscode() {
-            if (pinInput.value === REQUIRED_PIN) {
-                pinModal.classList.add('hidden');
-                window.location.href = pendingUrl; // Safely forward student to test
-            } else {
-                pinError.classList.remove('invisible');
-                pinInput.value = "";
-                pinInput.focus();
-            }
-        }
-
-        submitBtn.addEventListener('click', verifyPasscode);
-        
-        // Let parents/teachers submit by clicking 'Enter' inside the textfield
-        pinInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                verifyPasscode();
-            }
-        });
-    </script>
 </body>
 </html>
