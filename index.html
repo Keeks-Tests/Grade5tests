@@ -3,103 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 5 Tests & Flashcards Hub</title>
+    <title>Grade 5 Steampunk Math Portal</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for fun icons -->
+    <!-- FontAwesome for fun mechanical icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2 family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Quicksand', sans-serif;
-            background-color: #f5f3ff; /* Extremely soft purple background */
+            background-color: #2b221a; /* Dark iron/wood backdrop */
+            background-image: radial-gradient(#3d2f24 1px, transparent 1px);
+            background-size: 24px 24px;
             overflow-x: hidden;
         }
         h1, h2, h3 {
             font-family: 'Fredoka', sans-serif;
         }
-        /* Custom Sparkle and Float Animations */
-        @keyframes float {
+        /* Steampunk Floating/Spinning Keyframes */
+        @keyframes float-gear {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(3deg); }
+            50% { transform: translateY(-12px) rotate(45deg); }
         }
         @keyframes float-reverse {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(-3deg); }
+            0%, 100% { transform: translateY(0px) rotate(360deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
         }
-        @keyframes pulse-slow {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+        @keyframes pressure-pulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.03); filter: brightness(1.1); }
         }
-        @keyframes sparkle-twinkle {
-            0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
-            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+        @keyframes gear-trail-spin {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1.3) rotate(360deg); opacity: 0; }
         }
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
+        
+        .animate-float-gear {
+            animation: float-gear 8s ease-in-out infinite;
         }
         .animate-float-reverse {
-            animation: float-reverse 7s ease-in-out infinite;
+            animation: float-reverse 10s ease-in-out infinite;
         }
         .animate-pulse-slow {
-            animation: pulse-slow 3s ease-in-out infinite;
+            animation: pressure-pulse 4s ease-in-out infinite;
         }
-        .sparkle-particle {
+        .gear-particle {
             position: absolute;
             pointer-events: none;
-            animation: sparkle-twinkle 1s ease-out forwards;
+            animation: gear-trail-spin 1.2s ease-out forwards;
         }
-        .card-sparkle:hover {
-            box-shadow: 0 20px 35px -5px rgba(139, 92, 246, 0.3), 0 10px 15px -5px rgba(236, 72, 153, 0.3);
+        
+        /* Steampunk Plate Styling */
+        .steampunk-plate {
+            background: linear-gradient(135deg, #efe3d0 0%, #dfcca7 100%); /* Aged parchment / brass plate */
+            box-shadow: 0 10px 0 0 #8a653d, inset 0 0 15px rgba(74, 55, 40, 0.2);
+        }
+        
+        .card-mechanical:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -5px rgba(212, 175, 55, 0.25), 0 10px 0 0 #b38552;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between text-gray-800 relative pb-12">
+<body class="min-h-screen flex flex-col justify-between text-[#4a3728] relative pb-12">
 
-    <!-- Sparkle Sound Effects Setup & Visual Container -->
+    <!-- Mechanical Gear Particles Layer -->
     <div id="sparkle-layer" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
 
     <!-- Top Navigation -->
-    <nav class="bg-white border-b-4 border-violet-200 sticky top-0 z-40 shadow-sm">
+    <nav class="bg-[#1e1713] border-b-8 border-[#8a653d] sticky top-0 z-40 shadow-xl">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <a href="https://keeks-tests.github.io/Grade5tests/" class="flex items-center space-x-3 group">
-                <div class="bg-gradient-to-tr from-violet-500 to-fuchsia-500 text-white p-2.5 rounded-2xl shadow-md group-hover:rotate-12 transition-transform">
-                    <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                <div class="bg-gradient-to-tr from-[#b38552] to-[#8a653d] text-[#1e1713] p-2.5 rounded-2xl shadow-inner border-2 border-[#ffdf7a] group-hover:rotate-[360deg] transition-transform duration-1000">
+                    <i class="fa-solid fa-gears text-2xl"></i>
                 </div>
                 <div>
-                    <span class="text-xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent block leading-tight">Grade5Tests</span>
-                    <span class="text-xs text-gray-400 font-semibold tracking-wider uppercase">✨ Magic Learning Hub ✨</span>
+                    <span class="text-xl font-bold bg-gradient-to-r from-[#ffdf7a] to-[#e6b35c] bg-clip-text text-transparent block leading-tight">Grade5Tests</span>
+                    <span class="text-xs text-[#b38552] font-semibold tracking-wider uppercase">⚙️ CLOCKWORK APPARATUS ⚙️</span>
                 </div>
             </a>
             
-            <a href="https://github.com/Keeks-Tests/Grade5tests" target="_blank" rel="noopener noreferrer" class="bg-gray-100 hover:bg-violet-100 text-gray-700 hover:text-violet-700 px-4 py-2 rounded-full text-sm font-semibold inline-flex items-center gap-2 transition-all shadow-sm">
+            <a href="https://github.com/Keeks-Tests/Grade5tests" target="_blank" rel="noopener noreferrer" class="bg-[#3a2c22] hover:bg-[#4a3728] text-[#ffdf7a] hover:text-white px-4 py-2 rounded-xl text-sm font-semibold inline-flex items-center gap-2 border-2 border-[#8a653d] transition-all shadow-md">
                 <i class="fa-brands fa-github text-lg"></i>
-                <span>View Repository</span>
+                <span>Repository Files</span>
             </a>
         </div>
     </nav>
 
-    <!-- Hero Header -->
-    <header class="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 text-white py-14 px-4 shadow-inner relative overflow-hidden text-center">
-        <!-- Floating Sparkly Graphics -->
-        <div class="absolute top-10 left-10 text-4xl opacity-30 animate-float"><i class="fa-solid fa-star"></i></div>
-        <div class="absolute bottom-10 right-12 text-3xl opacity-20 animate-float-reverse"><i class="fa-solid fa-moon"></i></div>
-        <div class="absolute top-6 right-1/4 text-5xl opacity-25 animate-float"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-        <div class="absolute bottom-4 left-1/5 text-4xl opacity-30 animate-float-reverse"><i class="fa-solid fa-sparkles"></i></div>
+    <!-- Hero Header (Boiler Room Engine) -->
+    <header class="bg-gradient-to-r from-[#211814] via-[#3d2c23] to-[#211814] text-[#ffdf7a] py-14 px-4 border-b-8 border-[#8a653d] shadow-inner relative overflow-hidden text-center">
+        <!-- Floating Brass Gears -->
+        <div class="absolute top-10 left-10 text-5xl opacity-20 animate-float-gear text-[#ffdf7a]"><i class="fa-solid fa-gear"></i></div>
+        <div class="absolute bottom-10 right-12 text-6xl opacity-15 animate-float-reverse text-[#b38552]"><i class="fa-solid fa-gears"></i></div>
+        <div class="absolute top-6 right-1/4 text-4xl opacity-20 animate-float-gear text-[#8a653d]"><i class="fa-solid fa-wrench"></i></div>
+        <div class="absolute bottom-4 left-1/5 text-5xl opacity-25 animate-float-reverse text-[#ffdf7a]"><i class="fa-solid fa-clock"></i></div>
+        
+        <!-- Pipe decoration running across header -->
+        <div class="absolute left-0 right-0 top-0 h-2 bg-gradient-to-r from-[#8a653d] via-[#ffdf7a] to-[#8a653d] opacity-40"></div>
         
         <div class="max-w-4xl mx-auto relative z-10">
-            <span class="bg-yellow-300 text-yellow-900 px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase inline-block mb-3 shadow-md animate-pulse-slow">
-                ✨ EXTREME SPARKLE EDITION ✨
+            <span class="bg-[#8a653d] text-[#ffdf7a] px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase inline-block mb-3 border-2 border-[#ffdf7a] shadow-md animate-pulse-slow">
+                ⚙️ STEAM-POWERED AUTOMATON ⚙️
             </span>
-            <h1 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg leading-tight tracking-wide">
-                Grade 5 Interactive Math Portal
+            <h1 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg leading-tight tracking-wide text-white uppercase">
+                Grade 5 Mathematics Engine
             </h1>
-            <p class="text-lg md:text-2xl font-medium opacity-90 max-w-2xl mx-auto drop-shadow">
-                Practice, play, and sharpen your skills with our magical, interactive summer study tools!
+            <p class="text-lg md:text-2xl font-medium text-[#f4ede4] opacity-90 max-w-2xl mx-auto drop-shadow">
+                Power up your logical gears and complete the summer challenges to prevent the cognitive slide!
             </p>
         </div>
     </header>
@@ -107,81 +121,88 @@
     <!-- Main Content Area -->
     <main class="max-w-5xl mx-auto px-4 py-12 flex-grow w-full">
         
-        <!-- Summer Practice Recommendation Banner -->
-        <div class="bg-gradient-to-br from-amber-50 via-orange-50 to-pink-50 border-4 border-amber-200 rounded-3xl p-6 md:p-8 shadow-lg mb-12 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden animate-float">
-            <!-- Sparkles positioned in background of banner -->
-            <div class="absolute top-2 right-2 text-yellow-400 text-xl opacity-50"><i class="fa-solid fa-star"></i></div>
-            <div class="absolute bottom-2 left-2 text-pink-400 text-xl opacity-40"><i class="fa-solid fa-sparkles"></i></div>
+        <!-- Steampunk Summer Recommendation Banner -->
+        <div class="bg-gradient-to-br from-[#2d221b] to-[#1e1713] border-4 border-[#8a653d] rounded-3xl p-6 md:p-8 shadow-2xl mb-12 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">
+            <!-- Rivets decoration inside the banner corners -->
+            <div class="absolute top-2 left-2 w-2 h-2 rounded-full bg-[#ffdf7a] shadow-inner opacity-70"></div>
+            <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#ffdf7a] shadow-inner opacity-70"></div>
+            <div class="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-[#ffdf7a] shadow-inner opacity-70"></div>
+            <div class="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-[#ffdf7a] shadow-inner opacity-70"></div>
             
-            <div class="bg-gradient-to-tr from-amber-400 to-yellow-400 text-white w-20 h-20 rounded-3xl flex items-center justify-center text-4xl shadow-md flex-shrink-0 relative">
-                <i class="fa-solid fa-sun animate-spin" style="animation-duration: 20s;"></i>
-                <span class="absolute -top-1 -right-1 text-base">✨</span>
+            <div class="bg-gradient-to-tr from-[#8a653d] to-[#ffdf7a] text-[#1e1713] w-20 h-20 rounded-3xl flex items-center justify-center text-4xl shadow-lg flex-shrink-0 relative border-2 border-[#ffdf7a]">
+                <i class="fa-solid fa-clock animate-spin" style="animation-duration: 25s;"></i>
             </div>
             <div>
-                <h2 class="text-2xl md:text-3xl font-black text-amber-800 mb-2">☀️ Master Math & Prevent the Summer Slide!</h2>
-                <p class="text-gray-600 text-sm md:text-base leading-relaxed font-medium">
-                    To keep your skills super sharp over the break, we highly recommend practicing both flashcard activities daily! Just <strong>10 minutes a day</strong> of fun study prepares you to walk with ultimate confidence directly into Grade 6 math this fall. ✨
+                <h2 class="text-2xl md:text-3xl font-black text-[#ffdf7a] mb-2 uppercase">☀️ Prevent the Summer Rust!</h2>
+                <p class="text-[#f4ede4] text-sm md:text-base leading-relaxed font-medium opacity-90">
+                    Keep your internal gearbox running at peak optimization! We highly advise completing <strong>10 minutes</strong> of consistent calculations every day over the summer break. Regular training ensures zero corrosion on your math skills, keeping you fully prepped for Grade 6 in the fall!
                 </p>
             </div>
         </div>
 
-        <!-- Featured Activity Grid (Side-by-Side: No Either/Or) -->
+        <!-- Mechanical Activity Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
             
             <!-- Card 1: G5 Fractions Practice Hub -->
-            <div class="card bg-white rounded-3xl overflow-hidden border-4 border-violet-100 shadow-md card-sparkle hover:-translate-y-3 transition-all duration-300 flex flex-col justify-between" onmouseenter="spawnCardSparkles(this)">
-                <div>
-                    <div class="bg-gradient-to-r from-violet-500 to-purple-600 text-white p-8 relative">
-                        <div class="absolute right-6 top-6 bg-white/20 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl animate-float">
-                            <i class="fa-solid fa-star-half-stroke"></i>
-                        </div>
-                        <span class="bg-yellow-300 text-yellow-900 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
-                            📚 Interactive Hub
-                        </span>
-                        <h3 class="text-3xl font-black mt-4 leading-snug">G5 Fraction Practice Hub</h3>
+            <div class="card steampunk-plate rounded-3xl overflow-hidden border-4 border-[#8a653d] card-mechanical transition-all duration-300 flex flex-col justify-between relative p-1" onmouseenter="spawnCardSparkles(this)">
+                <!-- Rivets -->
+                <div class="absolute top-2 left-2 w-2 h-2 rounded-full bg-[#8a653d] opacity-50"></div>
+                <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#8a653d] opacity-50"></div>
+                <div class="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-[#8a653d] opacity-50"></div>
+                <div class="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-[#8a653d] opacity-50"></div>
+
+                <div class="bg-[#2a1f18] text-[#ffdf7a] p-8 relative rounded-t-2xl border-b-4 border-[#8a653d]">
+                    <div class="absolute right-6 top-6 bg-[#8a653d]/30 text-[#ffdf7a] w-14 h-14 rounded-2xl flex items-center justify-center text-3xl border border-[#ffdf7a]/20 animate-float-gear">
+                        <i class="fa-solid fa-gears"></i>
                     </div>
-                    <div class="p-8">
-                        <p class="text-gray-600 text-base leading-relaxed mb-6 font-medium">
-                            Our premier interactive system featuring fractions multiplication and division! All numerators and denominators are kept strictly between 1 and 12. Also includes an integrated virtual scratchpad drawing board!
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-2">
-                            <span class="bg-violet-50 text-violet-600 px-3 py-1 rounded-full text-xs font-bold border border-violet-100">✨ Fractions Focus</span>
-                            <span class="bg-pink-50 text-pink-600 px-3 py-1 rounded-full text-xs font-bold border border-pink-100">✏️ Scratchpad Included</span>
-                        </div>
-                    </div>
+                    <span class="bg-[#8a653d] text-[#ffdf7a] px-3 py-1 rounded-md text-xs font-black uppercase tracking-wider border border-[#ffdf7a]">
+                        🛠️ APPARATUS HUB
+                    </span>
+                    <h3 class="text-3xl font-black mt-4 leading-snug uppercase">Fraction Engine</h3>
                 </div>
-                <div class="p-8 pt-0">
-                    <a href="G5MathFChub.html" class="block text-center bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white text-lg font-bold py-4 px-6 rounded-2xl transition-all shadow-lg hover:shadow-violet-200">
-                        <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Open Fraction Hub
+                
+                <div class="p-8 flex-grow flex flex-col justify-between">
+                    <p class="text-[#3a2c22] text-base leading-relaxed mb-6 font-semibold">
+                        A dynamically generated math calculator focused on multiplication and division operations! All fractions run with factors kept between 1 and 12. Complete with an interactive pressure-sensitive drawing scratchpad.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-[#3a2c22] text-[#ffdf7a] px-3 py-1 rounded-md text-xs font-bold border border-[#8a653d]">⚙️ Fraction Division</span>
+                        <span class="bg-[#3a2c22] text-[#ffdf7a] px-3 py-1 rounded-md text-xs font-bold border border-[#8a653d]">🔧 Canvas Board</span>
+                    </div>
+                    <a href="G5MathFChub.html" class="block text-center bg-[#8a653d] hover:bg-[#a67b4c] text-white hover:text-[#ffdf7a] text-lg font-bold py-4 px-6 rounded-2xl transition-all shadow-md border-b-4 border-[#4a351f] hover:border-b-2">
+                        <i class="fa-solid fa-gauge mr-2"></i>Boot Fraction Engine
                     </a>
                 </div>
             </div>
 
             <!-- Card 2: Companion Math Flashcard Master Hub (g5fph.html) -->
-            <div class="card bg-white rounded-3xl overflow-hidden border-4 border-fuchsia-100 shadow-md card-sparkle hover:-translate-y-3 transition-all duration-300 flex flex-col justify-between" onmouseenter="spawnCardSparkles(this)">
-                <div>
-                    <div class="bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white p-8 relative">
-                        <div class="absolute right-6 top-6 bg-white/20 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl animate-float-reverse">
-                            <i class="fa-solid fa-layer-group"></i>
-                        </div>
-                        <span class="bg-yellow-300 text-yellow-900 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
-                            💫 Master Hub
-                        </span>
-                        <h3 class="text-3xl font-black mt-4 leading-snug">G5 Flashcards Master</h3>
+            <div class="card steampunk-plate rounded-3xl overflow-hidden border-4 border-[#8a653d] card-mechanical transition-all duration-300 flex flex-col justify-between relative p-1" onmouseenter="spawnCardSparkles(this)">
+                <!-- Rivets -->
+                <div class="absolute top-2 left-2 w-2 h-2 rounded-full bg-[#8a653d] opacity-50"></div>
+                <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#8a653d] opacity-50"></div>
+                <div class="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-[#8a653d] opacity-50"></div>
+                <div class="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-[#8a653d] opacity-50"></div>
+
+                <div class="bg-[#2a1f18] text-[#ffdf7a] p-8 relative rounded-t-2xl border-b-4 border-[#8a653d]">
+                    <div class="absolute right-6 top-6 bg-[#8a653d]/30 text-[#ffdf7a] w-14 h-14 rounded-2xl flex items-center justify-center text-3xl border border-[#ffdf7a]/20 animate-float-reverse">
+                        <i class="fa-solid fa-wrench"></i>
                     </div>
-                    <div class="p-8">
-                        <p class="text-gray-600 text-base leading-relaxed mb-6 font-medium">
-                            Explore your foundational flashcards hub page! Perfectly designed for high-frequency vocabulary, operations, geometric rules, concepts, and key definitions necessary for pre-algebra mastery.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-2">
-                            <span class="bg-fuchsia-50 text-fuchsia-600 px-3 py-1 rounded-full text-xs font-bold border border-fuchsia-100">🌟 Vocabulary Tools</span>
-                            <span class="bg-amber-50 text-amber-600 px-3 py-1 rounded-full text-xs font-bold border border-amber-100">☀️ Summer Math Pack</span>
-                        </div>
-                    </div>
+                    <span class="bg-[#8a653d] text-[#ffdf7a] px-3 py-1 rounded-md text-xs font-black uppercase tracking-wider border border-[#ffdf7a]">
+                        🕒 MEMORY COILS
+                    </span>
+                    <h3 class="text-3xl font-black mt-4 leading-snug uppercase">Master Flashcards</h3>
                 </div>
-                <div class="p-8 pt-0">
-                    <a href="g5fph.html" class="block text-center bg-gradient-to-r from-fuchsia-500 to-pink-500 hover:from-fuchsia-600 hover:to-pink-600 text-white text-lg font-bold py-4 px-6 rounded-2xl transition-all shadow-lg hover:shadow-fuchsia-200">
-                        <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Open Master Flashcards
+                
+                <div class="p-8 flex-grow flex flex-col justify-between">
+                    <p class="text-[#3a2c22] text-base leading-relaxed mb-6 font-semibold">
+                        Review high-frequency pre-algebra operations, core definitions, decimals, geometry properties, and fraction concepts. Highly calibrated for self-guided testing!
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-[#3a2c22] text-[#ffdf7a] px-3 py-1 rounded-md text-xs font-bold border border-[#8a653d]">🔑 Terminology</span>
+                        <span class="bg-[#3a2c22] text-[#ffdf7a] px-3 py-1 rounded-md text-xs font-bold border border-[#8a653d]">⏳ Core Mastery</span>
+                    </div>
+                    <a href="g5fph.html" class="block text-center bg-[#8a653d] hover:bg-[#a67b4c] text-white hover:text-[#ffdf7a] text-lg font-bold py-4 px-6 rounded-2xl transition-all shadow-md border-b-4 border-[#4a351f] hover:border-b-2">
+                        <i class="fa-solid fa-gauge mr-2"></i>Boot Master Coils
                     </a>
                 </div>
             </div>
@@ -191,69 +212,66 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t-4 border-violet-200 py-8 px-4 mt-12">
+    <footer class="bg-[#1e1713] border-t-8 border-[#8a653d] py-8 px-4 mt-12 text-[#ffdf7a]">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             <div>
-                <p class="font-bold text-gray-700">Grade5Tests Sparkle Portal ✨</p>
-                <p class="text-xs text-gray-400 mt-1">Inspiring magical moments in mathematical education.</p>
+                <p class="font-bold">Grade5Tests Clockwork Portal ⚙️</p>
+                <p class="text-xs text-[#b38552] mt-1">Calibrating young minds for outstanding mathematical performance.</p>
             </div>
-            <div class="flex flex-wrap justify-center gap-6 text-sm font-semibold text-gray-500">
-                <a href="G5MathFChub.html" class="hover:text-violet-600 transition-colors">Fractions Hub</a>
-                <a href="g5fph.html" class="hover:text-fuchsia-600 transition-colors">Master Hub</a>
-                <a href="https://github.com/Keeks-Tests/Grade5tests" target="_blank" rel="noopener noreferrer" class="hover:text-violet-600 transition-colors">GitHub Repo</a>
+            <div class="flex flex-wrap justify-center gap-6 text-sm font-semibold text-[#b38552]">
+                <a href="G5MathFChub.html" class="hover:text-[#ffdf7a] transition-colors">Fractions Engine</a>
+                <a href="g5fph.html" class="hover:text-[#ffdf7a] transition-colors">Master Coils</a>
+                <a href="https://github.com/Keeks-Tests/Grade5tests" target="_blank" rel="noopener noreferrer" class="hover:text-[#ffdf7a] transition-colors">Source Code</a>
             </div>
         </div>
     </footer>
 
-    <!-- Magical Sparkles JavaScript Engine -->
+    <!-- Steampunk Interactive Gear Trail Engine -->
     <script>
         const sparkleLayer = document.getElementById('sparkle-layer');
-        const sparkleEmojis = ['✨', '⭐', '🌟', '💫', '💖'];
+        const gearEmojis = ['⚙️', '🔩', '🔧', '💨', '🕒'];
 
-        // 1. Mouse Move Sparkle Trail (Lightweight)
+        // Mouse Move Gear Trail
         document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.15) return; // Limit volume of spawned sparkles to keep it performant
+            if (Math.random() > 0.12) return; // Keeps rendering lightweight
             
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle-particle text-xl select-none';
-            sparkle.style.left = `${e.clientX}px`;
-            sparkle.style.top = `${e.clientY + window.scrollY}px`;
-            sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+            const gear = document.createElement('div');
+            gear.className = 'gear-particle text-xl select-none';
+            gear.style.left = `${e.clientX}px`;
+            gear.style.top = `${e.clientY + window.scrollY}px`;
+            gear.textContent = gearEmojis[Math.floor(Math.random() * gearEmojis.length)];
             
-            // Random styling offsets
             const randomRotation = Math.floor(Math.random() * 360);
-            sparkle.style.transform = `rotate(${randomRotation}deg)`;
+            gear.style.transform = `rotate(${randomRotation}deg)`;
             
-            sparkleLayer.appendChild(sparkle);
+            sparkleLayer.appendChild(gear);
             
-            // Auto clean up element
             setTimeout(() => {
-                sparkle.remove();
-            }, 1000);
+                gear.remove();
+            }, 1200);
         });
 
-        // 2. Spawn Card Hover Burst Effect
+        // Hover Burst Effect
         function spawnCardSparkles(cardEl) {
             const rect = cardEl.getBoundingClientRect();
             for (let i = 0; i < 8; i++) {
                 setTimeout(() => {
-                    const sparkle = document.createElement('div');
-                    sparkle.className = 'sparkle-particle text-2xl select-none';
+                    const gear = document.createElement('div');
+                    gear.className = 'gear-particle text-2xl select-none';
                     
-                    // Spread around the card perimeter
                     const posX = rect.left + Math.random() * rect.width;
                     const posY = rect.top + window.scrollY + Math.random() * rect.height;
                     
-                    sparkle.style.left = `${posX}px`;
-                    sparkle.style.top = `${posY}px`;
-                    sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+                    gear.style.left = `${posX}px`;
+                    gear.style.top = `${posY}px`;
+                    gear.textContent = gearEmojis[Math.floor(Math.random() * gearEmojis.length)];
                     
-                    sparkleLayer.appendChild(sparkle);
+                    sparkleLayer.appendChild(gear);
                     
                     setTimeout(() => {
-                        sparkle.remove();
-                    }, 1000);
-                }, i * 80);
+                        gear.remove();
+                    }, 1200);
+                }, i * 70);
             }
         }
     </script>
