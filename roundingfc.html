@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rounding Number Flashcards</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons for buttons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts: Nunito for a child-friendly rounded look -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0fdfa; /* Light teal background */
+            background-image: radial-gradient(#ccfbf1 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+
+        /* 3D Flip Card Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        /* When the .flipped class is applied to the container, rotate the inner card */
+        .card-container.flipped .transform-style-3d {
+            transform: rotateY(180deg);
+        }
+
+        /* Prevent text selection when tapping rapidly */
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="max-w-2xl w-full bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 md:p-10 border-4 border-teal-100">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-black text-teal-600 mb-2 tracking-tight">
+                <i class="ph-fill ph-math-operations text-yellow-400 mr-2"></i>
+                Rounding Safari
+            </h1>
+            <p class="text-gray-500 font-bold text-lg" id="progress-text">Card 1 / 50</p>
+        </div>
+
+        <!-- Flashcard -->
+        <div class="perspective-1000 w-full h-64 md:h-80 cursor-pointer no-select card-container" id="flashcard" onclick="flipCard()">
+            <div class="transform-style-3d relative w-full h-full rounded-3xl shadow-lg border-4 border-teal-200">
+                
+                <!-- Front of Card (Question) -->
+                <div class="backface-hidden absolute w-full h-full bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl flex flex-col items-center justify-center p-8 text-center">
+                    <span class="text-orange-400 font-bold tracking-widest uppercase text-sm mb-4">Question</span>
+                    <h2 class="text-3xl md:text-5xl font-black text-orange-600 leading-tight" id="question-text">
+                        Loading...
+                    </h2>
+                    <div class="absolute bottom-4 text-orange-300 font-bold text-sm animate-pulse">
+                        <i class="ph ph-hand-tap mr-1"></i> Tap to flip
+                    </div>
+                </div>
+
+                <!-- Back of Card (Answer) -->
+                <div class="backface-hidden rotate-y-180 absolute w-full h-full bg-gradient-to-br from-teal-400 to-emerald-400 rounded-2xl flex flex-col items-center justify-center p-8 text-center shadow-inner">
+                    <span class="text-teal-100 font-bold tracking-widest uppercase text-sm mb-4">Answer</span>
+                    <h2 class="text-6xl md:text-8xl font-black text-white drop-shadow-md" id="answer-text">
+                        ...
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center justify-between mt-10 gap-2">
+            <button onclick="prevCard()" class="flex-1 bg-teal-100 hover:bg-teal-200 text-teal-700 font-bold py-4 px-6 rounded-2xl transition duration-200 active:scale-95 flex items-center justify-center gap-2">
+                <i class="ph-bold ph-caret-left text-xl"></i>
+                <span class="hidden sm:inline">Back</span>
+            </button>
+            
+            <button onclick="shuffleCards()" class="flex-1 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-black py-4 px-6 rounded-2xl transition duration-200 active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                <i class="ph-bold ph-shuffle text-xl"></i>
+                Shuffle
+            </button>
+
+            <button onclick="nextCard()" class="flex-1 bg-teal-500 hover:bg-teal-600 text-white font-bold py-4 px-6 rounded-2xl transition duration-200 active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                <span class="hidden sm:inline">Next</span>
+                <i class="ph-bold ph-caret-right text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Keyboard Hint -->
+        <p class="text-center text-gray-400 text-xs mt-6 font-bold hidden md:block">
+            Pro Tip: Use Left/Right arrows to change cards, Spacebar to flip!
+        </p>
+    </div>
+
+    <script>
+        // Data: 55 Unique Rounding Flashcards (Billions to Tenths)
+        const originalCards = [
+            // Tenths
+            { q: "Round 1.23 to the nearest tenth", a: "1.2" },
+            { q: "Round 4.56 to the nearest tenth", a: "4.6" },
+            { q: "Round 9.08 to the nearest tenth", a: "9.1" },
+            { q: "Round 19.95 to the nearest tenth", a: "20.0" },
+            { q: "Round 0.04 to the nearest tenth", a: "0.0" },
+
+            // Whole Numbers (Ones)
+            { q: "Round 3.4 to the nearest one's place", a: "3" },
+            { q: "Round 7.5 to the nearest one's place", a: "8" },
+            { q: "Round 99.9 to the nearest one's place", a: "100" },
+            { q: "Round 0.6 to the nearest one's place", a: "1" },
+            { q: "Round 123.49 to the nearest one's place", a: "123" },
+
+            // Tens
+            { q: "Round 12 to the nearest 10", a: "10" },
+            { q: "Round 85 to the nearest 10", a: "90" },
+            { q: "Round 99 to the nearest 10", a: "100" },
+            { q: "Round 1,005 to the nearest 10", a: "1,010" },
+            { q: "Round 4 to the nearest 10", a: "0" },
+
+            // Hundreds
+            { q: "Round 120 to the nearest 100", a: "100" },
+            { q: "Round 450 to the nearest 100", a: "500" },
+            { q: "Round 980 to the nearest 100", a: "1,000" },
+            { q: "Round 1,449 to the nearest 100", a: "1,400" },
+            { q: "Round 9,999 to the nearest 100", a: "10,000" },
+
+            // Thousands
+            { q: "Round 1,200 to the nearest 1,000", a: "1,000" },
+            { q: "Round 4,500 to the nearest 1,000", a: "5,000" },
+            { q: "Round 9,499 to the nearest 1,000", a: "9,000" },
+            { q: "Round 12,500 to the nearest 1,000", a: "13,000" },
+            { q: "Round 99,800 to the nearest 1,000", a: "100,000" },
+
+            // Ten Thousands
+            { q: "Round 12,000 to the nearest 10,000", a: "10,000" },
+            { q: "Round 45,000 to the nearest 10,000", a: "50,000" },
+            { q: "Round 94,999 to the nearest 10,000", a: "90,000" },
+            { q: "Round 195,000 to the nearest 10,000", a: "200,000" },
+            { q: "Round 9,999 to the nearest 10,000", a: "10,000" },
+
+            // Hundred Thousands
+            { q: "Round 120,000 to the nearest 100,000", a: "100,000" },
+            { q: "Round 450,000 to the nearest 100,000", a: "500,000" },
+            { q: "Round 949,999 to the nearest 100,000", a: "900,000" },
+            { q: "Round 1,950,000 to the nearest 100,000", a: "2,000,000" },
+            { q: "Round 999,999 to the nearest 100,000", a: "1,000,000" },
+
+            // Millions
+            { q: "Round 1,200,000 to the nearest million", a: "1,000,000" },
+            { q: "Round 4,500,000 to the nearest million", a: "5,000,000" },
+            { q: "Round 9,499,999 to the nearest million", a: "9,000,000" },
+            { q: "Round 12,500,000 to the nearest million", a: "13,000,000" },
+            { q: "Round 99,800,000 to the nearest million", a: "100,000,000" },
+
+            // Ten Millions
+            { q: "Round 12,000,000 to the nearest 10 million", a: "10,000,000" },
+            { q: "Round 45,000,000 to the nearest 10 million", a: "50,000,000" },
+            { q: "Round 94,999,999 to the nearest 10 million", a: "90,000,000" },
+            { q: "Round 195,000,000 to the nearest 10 million", a: "200,000,000" },
+            { q: "Round 9,999,999 to the nearest 10 million", a: "10,000,000" },
+
+            // Hundred Millions
+            { q: "Round 120,000,000 to the nearest 100 million", a: "100,000,000" },
+            { q: "Round 450,000,000 to the nearest 100 million", a: "500,000,000" },
+            { q: "Round 949,999,999 to the nearest 100 million", a: "900,000,000" },
+            { q: "Round 1,950,000,000 to the nearest 100 million", a: "2,000,000,000" },
+            { q: "Round 999,999,999 to the nearest 100 million", a: "1,000,000,000" },
+
+            // Billions
+            { q: "Round 1,200,000,000 to the nearest billion", a: "1,000,000,000" },
+            { q: "Round 4,500,000,000 to the nearest billion", a: "5,000,000,000" },
+            { q: "Round 9,499,999,999 to the nearest billion", a: "9,000,000,000" },
+            { q: "Round 12,500,000,000 to the nearest billion", a: "13,000,000,000" },
+            { q: "Round 99,800,000,000 to the nearest billion", a: "100,000,000,000" }
+        ];
+
+        let cards = [...originalCards];
+        let currentIndex = 0;
+        let isFlipped = false;
+
+        // DOM Elements
+        const flashcardEl = document.getElementById('flashcard');
+        const questionText = document.getElementById('question-text');
+        const answerText = document.getElementById('answer-text');
+        const progressText = document.getElementById('progress-text');
+
+        // Initialization
+        function init() {
+            renderCard();
+        }
+
+        // Display current card details
+        function renderCard() {
+            const currentCard = cards[currentIndex];
+            questionText.innerText = currentCard.q;
+            answerText.innerText = currentCard.a;
+            progressText.innerText = `Card ${currentIndex + 1} of ${cards.length}`;
+        }
+
+        // Flip mechanism
+        function flipCard() {
+            isFlipped = !isFlipped;
+            if (isFlipped) {
+                flashcardEl.classList.add('flipped');
+            } else {
+                flashcardEl.classList.remove('flipped');
+            }
+        }
+
+        // Navigation (Next)
+        function nextCard() {
+            if (isFlipped) {
+                flipCard(); // Unflip first
+                // Wait for the unflip animation before changing the text
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % cards.length;
+                    renderCard();
+                }, 300);
+            } else {
+                currentIndex = (currentIndex + 1) % cards.length;
+                renderCard();
+            }
+        }
+
+        // Navigation (Previous)
+        function prevCard() {
+            if (isFlipped) {
+                flipCard();
+                setTimeout(() => {
+                    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                    renderCard();
+                }, 300);
+            } else {
+                currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                renderCard();
+            }
+        }
+
+        // Fisher-Yates Shuffle Algorithm
+        function shuffleCards() {
+            // Unflip if flipped
+            if (isFlipped) {
+                flipCard();
+            }
+            
+            setTimeout(() => {
+                for (let i = cards.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [cards[i], cards[j]] = [cards[j], cards[i]];
+                }
+                currentIndex = 0;
+                renderCard();
+                
+                // Add a little visual feedback on shuffle
+                flashcardEl.classList.add('scale-105', 'opacity-50');
+                setTimeout(() => {
+                    flashcardEl.classList.remove('scale-105', 'opacity-50');
+                }, 200);
+            }, isFlipped ? 300 : 0);
+        }
+
+        // Keyboard navigation and touch swipe support
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                flipCard();
+            } else if (e.code === 'ArrowRight') {
+                nextCard();
+            } else if (e.code === 'ArrowLeft') {
+                prevCard();
+            }
+        });
+
+        // Simple touch swipe logic
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        flashcardEl.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        flashcardEl.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            // Check if it was a significant horizontal swipe, not just a tap
+            if (touchEndX < touchStartX - 50) nextCard(); // Swipe Left
+            if (touchEndX > touchStartX + 50) prevCard(); // Swipe Right
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>
